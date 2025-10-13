@@ -1,0 +1,160 @@
+/* ============================================
+   PRIMUS IDE - MAIN STYLESHEET
+   Imports all UI components and layouts
+   ============================================ */
+
+/* Core Design System */
+@import './premium-design-system.css';
+@import './ide-layout.css';
+@import './components.css';
+
+/* Component-Specific Styles */
+@import './file-explorer-enhanced.css';
+@import './terminal-enhanced.css';
+@import './editor-enhanced.css';
+
+/* Legacy imports for compatibility */
+@import './command-palette.css';
+@import './breadcrumb.css';
+
+/* Git Components */
+@import './GitActionButtons.css';
+@import './GitBranchManager.css';
+@import './GitDiffViewer.css';
+
+/* === GLOBAL OVERRIDES === */
+
+/* Ensure Monaco Editor uses our theme */
+.monaco-editor,
+.monaco-editor-background,
+.monaco-editor .margin {
+  background-color: var(--color-bg-primary) !important;
+}
+
+.monaco-editor .minimap {
+  opacity: 0.6;
+}
+
+.monaco-editor .scrollbar {
+  opacity: 0.4;
+}
+
+.monaco-editor .scrollbar:hover {
+  opacity: 0.7;
+}
+
+/* Command Palette Enhancement */
+.command-palette {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+/* Quick Open Enhancement */
+.quick-open {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+/* Settings Panel Enhancement */
+.settings-panel {
+  background: var(--color-bg-secondary) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-xl) !important;
+}
+
+/* === TRANSITIONS & ANIMATIONS === */
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable transitions during resize */
+.resizing * {
+  transition: none !important;
+}
+
+/* === ACCESSIBILITY === */
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-bg: rgba(0, 0, 0, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+  
+  .btn-primary {
+    border: 2px solid white;
+  }
+  
+  .input {
+    border-width: 2px;
+  }
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  :root {
+    --width-sidebar: 220px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  :root {
+    --width-activity: 40px;
+    --height-tabs: 32px;
+  }
+  
+  .menu-bar {
+    font-size: 11px;
+  }
+  
+  .tab {
+    min-width: 80px;
+  }
+}
+
+/* === PRINT STYLES === */
+
+@media print {
+  .activity-bar,
+  .sidebar,
+  .status-bar,
+  .menu-bar {
+    display: none !important;
+  }
+  
+  .editor-container {
+    border: none !important;
+  }
+}

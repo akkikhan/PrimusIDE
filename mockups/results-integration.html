@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Results Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #090979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        
+        .integration-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .summary-banner {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .summary-title {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .summary-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff00;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        
+        .completion-message {
+            color: #cccccc;
+            font-size: 1rem;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 25px;
+        }
+        
+        .code-results {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .result-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .result-title {
+            font-size: 1.1rem;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        
+        .result-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-approved {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+        
+        .status-review {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+        }
+        
+        .status-rejected {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+        }
+        
+        .code-preview {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-line {
+            display: block;
+            margin-bottom: 2px;
+        }
+        
+        .code-line.new {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid #00ff00;
+            padding-left: 8px;
+        }
+        
+        .code-line.modified {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 3px solid #ffa500;
+            padding-left: 8px;
+        }
+        
+        .result-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-approve {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        .btn-approve:hover {
+            background: rgba(0, 255, 0, 0.3);
+        }
+        
+        .btn-reject {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn-reject:hover {
+            background: rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn-edit {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-edit:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .integration-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            height: fit-content;
+        }
+        
+        .panel-title {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+        
+        .integration-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option-group {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .option-title {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        
+        .option-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            color: #00d4ff;
+            font-size: 12px;
+        }
+        
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+        
+        .integration-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .summary-title {
+            font-weight: 600;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .summary-value {
+            color: #cccccc;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn-primary {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .annotations {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 8: Results Integration - Reviewing and integrating AI-generated code -->
+    <a href="progress-monitoring.html" class="back-link">← Back to Progress Monitoring</a>
+    
+    <div class="header">
+        <h1 class="logo">OmniCode AI</h1>
+        <p class="subtitle">Review & Integrate Swarm Results</p>
+    </div>
+    
+    <div class="integration-container">
+        <!-- Completion Summary -->
+        <div class="summary-banner">
+            <h2 class="summary-title">🎉 Swarm Development Complete!</h2>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Tasks Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">247</div>
+                    <div class="stat-label">Lines Generated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">94%</div>
+                    <div class="stat-label">Code Quality</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2.8x</div>
+                    <div class="stat-label">Speed Boost</div>
+                </div>
+            </div>
+            <p class="completion-message">
+                All swarm agents have completed their assigned tasks. Review the generated code and integrate it into your project.
+            </p>
+        </div>
+        
+        <div class="results-grid">
+            <!-- Code Results -->
+            <div class="code-results">
+                <!-- Authentication System -->
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-title">🔐 User Authentication System</div>
+                        <span class="result-status status-approved">Approved</span>
+                    </div>
+                    
+                    <div class="code-preview">
+                        <div class="code-line">// src/auth/AuthService.ts</div>
+                        <div class="code-line new">import jwt from 'jsonwebtoken';</div>
+                        <div class="code-line new">import bcrypt from 'bcrypt';</div>
+                        <div class="code-line new"></div>
+                        <div class="code-line new">export class AuthService {</div>
+                        <div class="code-line new">  static async hashPassword(password: string): Promise&lt;string&gt; {</div>
+                        <div class="code-line new">    return bcrypt.hash(password, 12);</div>
+                        <div class="code-line new">  }</div>
+                        <div class="code-line new"></div>
+                        <div class="code-line new">  static async verifyPassword(password: string, hash: string): Promise&lt;boolean&gt; {</div>
+                        <div class="code-line new">    return bcrypt.compare(password, hash);</div>
+                        <div class="code-line new">  }</div>
+                        <div class="code-line new">}</div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-reject">Reject</button>
+                        <button class="btn btn-approve">✓ Approved</button>
+                    </div>
+                </div>
+                
+                <!-- Database Schema -->
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-title">🗄️ Product Database Schema</div>
+                        <span class="result-status status-approved">Approved</span>
+                    </div>
+                    
+                    <div class="code-preview">
+                        <div class="code-line">// migrations/001_create_products.sql</div>
+                        <div class="code-line new">CREATE TABLE products (</div>
+                        <div class="code-line new">  id SERIAL PRIMARY KEY,</div>
+                        <div class="code-line new">  name VARCHAR(255) NOT NULL,</div>
+                        <div class="code-line new">  price DECIMAL(10,2) NOT NULL,</div>
+                        <div class="code-line new">  description TEXT,</div>
+                        <div class="code-line new">  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP</div>
+                        <div class="code-line new">);</div>
+                        <div class="code-line new"></div>
+                        <div class="code-line new">CREATE TABLE categories (</div>
+                        <div class="code-line new">  id SERIAL PRIMARY KEY,</div>
+                        <div class="code-line new">  name VARCHAR(100) NOT NULL UNIQUE</div>
+                        <div class="code-line new">);</div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-reject">Reject</button>
+                        <button class="btn btn-approve">✓ Approved</button>
+                    </div>
+                </div>
+                
+                <!-- Shopping Cart Component -->
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-title">🛒 Shopping Cart Component</div>
+                        <span class="result-status status-review">Needs Review</span>
+                    </div>
+                    
+                    <div class="code-preview">
+                        <div class="code-line">// src/components/Cart.tsx</div>
+                        <div class="code-line new">import React, { useState, useEffect } from 'react';</div>
+                        <div class="code-line new">import { Product } from '../types';</div>
+                        <div class="code-line new"></div>
+                        <div class="code-line modified">export const Cart: React.FC = () => {</div>
+                        <div class="code-line new">  const [items, setItems] = useState&lt;Product[]&gt;([]);</div>
+                        <div class="code-line new">  const [total, setTotal] = useState(0);</div>
+                        <div class="code-line new"></div>
+                        <div class="code-line new">  useEffect(() => {</div>
+                        <div class="code-line new">    const newTotal = items.reduce((sum, item) => sum + item.price, 0);</div>
+                        <div class="code-line new">    setTotal(newTotal);</div>
+                        <div class="code-line new">  }, [items]);</div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-reject">Reject</button>
+                        <button class="btn btn-approve">Approve</button>
+                    </div>
+                </div>
+                
+                <!-- Payment Integration -->
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-title">💳 Stripe Payment Integration</div>
+                        <span class="result-status status-review">Needs Review</span>
+                    </div>
+                    
+                    <div class="code-preview">
+                        <div class="code-line">// src/payments/StripeService.ts</div>
+                        <div class="code-line new">import Stripe from 'stripe';</div>
+                        <div class="code-line new"></div>
+                        <div class="code-line new">const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);</div>
+                        <div class="code-line new"></div>
+                        <div class="code-line new">export class StripeService {</div>
+                        <div class="code-line new">  static async createPaymentIntent(amount: number, currency = 'usd') {</div>
+                        <div class="code-line new">    return stripe.paymentIntents.create({</div>
+                        <div class="code-line new">      amount: amount * 100, // Convert to cents</div>
+                        <div class="code-line new">      currency,</div>
+                        <div class="code-line new">    });</div>
+                        <div class="code-line new">  }</div>
+                        <div class="code-line new">}</div>
+                    </div>
+                    
+                    <div class="result-actions">
+                        <button class="btn btn-edit">Edit</button>
+                        <button class="btn btn-reject">Reject</button>
+                        <button class="btn btn-approve">Approve</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Integration Panel -->
+            <div class="integration-panel">
+                <h3 class="panel-title">🔧 Integration Options</h3>
+                
+                <div class="integration-options">
+                    <div class="option-group">
+                        <div class="option-title">Code Integration</div>
+                        <div class="option-controls">
+                            <div class="checkbox-group">
+                                <div class="checkbox checked"></div>
+                                <span class="checkbox-label">Auto-merge approved code</span>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox checked"></div>
+                                <span class="checkbox-label">Create backup before integration</span>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox"></div>
+                                <span class="checkbox-label">Run tests after integration</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="option-title">Dependencies</div>
+                        <div class="option-controls">
+                            <div class="checkbox-group">
+                                <div class="checkbox checked"></div>
+                                <span class="checkbox-label">Install required packages</span>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox checked"></div>
+                                <span class="checkbox-label">Update package.json</span>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox"></div>
+                                <span class="checkbox-label">Check for conflicts</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="option-title">Documentation</div>
+                        <div class="option-controls">
+                            <div class="checkbox-group">
+                                <div class="checkbox checked"></div>
+                                <span class="checkbox-label">Generate API docs</span>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox"></div>
+                                <span class="checkbox-label">Update README</span>
+                            </div>
+                            <div class="checkbox-group">
+                                <div class="checkbox"></div>
+                                <span class="checkbox-label">Create usage examples</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="integration-summary">
+                    <div class="summary-title">📊 Integration Summary</div>
+                    <div class="summary-item">
+                        <span>Files to create:</span>
+                        <span class="summary-value">8</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Files to modify:</span>
+                        <span class="summary-value">3</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Dependencies to add:</span>
+                        <span class="summary-value">5</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Estimated time:</span>
+                        <span class="summary-value">2-3 minutes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn-secondary">Save Changes</button>
+            <a href="optimization.html" class="btn-primary">Integrate & Optimize</a>
+            <button class="btn-secondary">Export Code</button>
+        </div>
+    </div>
+    
+    <!-- Detailed Annotations for Screen 8 -->
+    <div class="annotations">
+        <strong>Screen 8 Annotations:</strong><br>
+        • <strong>Completion Summary:</strong> Statistics showing tasks completed, lines generated, quality score, speed boost<br>
+        • <strong>Code Results:</strong> Individual cards for each generated component with syntax highlighting<br>
+        • <strong>Status Indicators:</strong> Approved, Needs Review, Rejected states with color coding<br>
+        • <strong>Code Diffs:</strong> Visual indicators for new (green) and modified (orange) code lines<br>
+        • <strong>Integration Options:</strong> Checkboxes for auto-merge, backups, testing, dependencies<br>
+        • <strong>Integration Summary:</strong> Preview of files to create/modify and dependencies to add<br>
+        • <strong>Action Buttons:</strong> Edit, Reject, Approve options for each code result<br>
+        • <strong>Integrate & Optimize Button:</strong> Primary CTA to optimization screen
+    </div>
+</body>
+</html>

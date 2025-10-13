@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Command Palette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: rgba(0, 0, 0, 0.7);
+            color: #cccccc;
+            height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
+        }
+        
+        .command-palette {
+            width: 600px;
+            max-height: 400px;
+            background: #252526;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid #3e3e42;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .search-container {
+            padding: 15px;
+            border-bottom: 1px solid #3e3e42;
+            background: #1e1e1e;
+        }
+        
+        .search-input {
+            width: 100%;
+            background: #3c3c3c;
+            border: 1px solid #565656;
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: #cccccc;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            border-color: #007acc;
+            box-shadow: 0 0 0 1px #007acc;
+        }
+        
+        .search-input::placeholder {
+            color: #858585;
+        }
+        
+        .agent-selector {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .agent-label {
+            font-size: 12px;
+            color: #858585;
+        }
+        
+        .agent-dropdown {
+            background: #3c3c3c;
+            border: 1px solid #565656;
+            border-radius: 4px;
+            padding: 5px 10px;
+            color: #cccccc;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .commands-list {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+        
+        .command-group {
+            border-bottom: 1px solid #3e3e42;
+        }
+        
+        .group-header {
+            padding: 8px 15px;
+            background: #2d2d30;
+            font-size: 11px;
+            font-weight: 600;
+            color: #858585;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .command-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.15s;
+        }
+        
+        .command-item:hover {
+            background: rgba(0, 122, 204, 0.1);
+        }
+        
+        .command-item.selected {
+            background: rgba(0, 122, 204, 0.2);
+        }
+        
+        .command-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .command-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .command-text {
+            flex: 1;
+        }
+        
+        .command-name {
+            font-size: 14px;
+            color: #cccccc;
+            font-weight: 500;
+        }
+        
+        .command-description {
+            font-size: 12px;
+            color: #858585;
+            margin-top: 2px;
+        }
+        
+        .command-shortcut {
+            font-size: 11px;
+            color: #858585;
+            background: #3c3c3c;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+        
+        .swarm-highlight {
+            color: #00d4ff;
+        }
+        
+        .agent-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff00;
+            margin-left: 8px;
+        }
+        
+        .agent-indicator.offline {
+            background: #ff6b6b;
+        }
+        
+        .recent-commands {
+            background: rgba(255, 255, 255, 0.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="command-palette">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Type a command or search..." value="spawn">
+            <div class="agent-selector">
+                <span class="agent-label">Target Agent:</span>
+                <select class="agent-dropdown">
+                    <option>All Agents</option>
+                    <option>Agent Alpha</option>
+                    <option>Agent Beta</option>
+                    <option>Agent Gamma</option>
+                    <option>Agent Delta</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="commands-list">
+            <div class="command-group recent-commands">
+                <div class="group-header">Recent Commands</div>
+                <div class="command-item selected">
+                    <div class="command-left">
+                        <div class="command-icon">🤖</div>
+                        <div class="command-text">
+                            <div class="command-name">Spawn Agent</div>
+                            <div class="command-description">Create a new AI agent in the swarm</div>
+                        </div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Shift+P</div>
+                </div>
+                
+                <div class="command-item">
+                    <div class="command-left">
+                        <div class="command-icon">🔄</div>
+                        <div class="command-text">
+                            <div class="command-name">Synchronize Swarm</div>
+                            <div class="command-description">Sync all agents with latest context</div>
+                        </div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Shift+S</div>
+                </div>
+            </div>
+            
+            <div class="command-group">
+                <div class="group-header">Swarm Commands</div>
+                
+                <div class="command-item">
+                    <div class="command-left">
+                        <div class="command-icon swarm-highlight">⚡</div>
+                        <div class="command-text">
+                            <div class="command-name swarm-highlight">Coordinate Swarm Task</div>
+                            <div class="command-description">Assign coordinated task to multiple agents</div>
+                        </div>
+                        <div class="agent-indicator"></div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Shift+T</div>
+                </div>
+                
+                <div class="command-item">
+                    <div class="command-left">
+                        <div class="command-icon swarm-highlight">📊</div>
+                        <div class="command-text">
+                            <div class="command-name swarm-highlight">Swarm Performance Report</div>
+                            <div class="command-description">Generate detailed swarm analytics</div>
+                        </div>
+                        <div class="agent-indicator"></div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Shift+R</div>
+                </div>
+                
+                <div class="command-item">
+                    <div class="command-left">
+                        <div class="command-icon swarm-highlight">🔧</div>
+                        <div class="command-text">
+                            <div class="command-name swarm-highlight">Agent Configuration</div>
+                            <div class="command-description">Modify agent settings and capabilities</div>
+                        </div>
+                        <div class="agent-indicator"></div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Shift+C</div>
+                </div>
+                
+                <div class="command-item">
+                    <div class="command-left">
+                        <div class="command-icon swarm-highlight">🛑</div>
+                        <div class="command-text">
+                            <div class="command-name swarm-highlight">Terminate Agent</div>
+                            <div class="command-description">Safely shut down specific agent</div>
+                        </div>
+                        <div class="agent-indicator offline"></div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Shift+X</div>
+                </div>
+            </div>
+            
+            <div class="command-group">
+                <div class="group-header">Editor Commands</div>
+                
+                <div class="command-item">
+                    <div class="command-left">
+                        <div class="command-icon">💡</div>
+                        <div class="command-text">
+                            <div class="command-name">AI Code Completion</div>
+                            <div class="command-description">Trigger intelligent code suggestions</div>
+                        </div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Space</div>
+                </div>
+                
+                <div class="command-item">
+                    <div class="command-left">
+                        <div class="command-icon">🔍</div>
+                        <div class="command-text">
+                            <div class="command-name">Find in Files</div>
+                            <div class="command-description">Search across all project files</div>
+                        </div>
+                    </div>
+                    <div class="command-shortcut">Ctrl+Shift+F</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

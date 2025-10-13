@@ -1,0 +1,102 @@
+.quick-settings {
+  position: fixed;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  min-width: 200px;
+  box-shadow: var(--elevation-2);
+  z-index: var(--z-dropdown);
+  font-size: var(--text-size-sm);
+}
+
+.quick-settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.quick-settings-header h3 {
+  margin: 0;
+  font-size: var(--text-size);
+  color: var(--color-text-strong);
+}
+
+.settings-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.settings-button:hover {
+  background: var(--color-accent-muted);
+}
+
+.quick-settings-group {
+  margin-bottom: var(--space-4);
+}
+
+.quick-settings-group label {
+  display: block;
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-size-sm);
+}
+
+.theme-buttons {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.theme-btn {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  font-size: var(--text-size-lg);
+  width: 40px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-btn:hover {
+  background: var(--color-accent-muted);
+}
+
+.theme-btn.active {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+.toggle-label {
+  display: flex !important;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  margin-bottom: 0 !important;
+}
+
+.toggle-label input {
+  margin: 0;
+}
+
+.quick-settings-info {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  text-align: center;
+}

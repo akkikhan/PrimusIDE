@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Swarm Activation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #090979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        
+        .activation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .swarm-overview {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .swarm-title {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .swarm-description {
+            font-size: 1rem;
+            color: #cccccc;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .activation-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 25px;
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            animation: pulse-red 2s infinite;
+        }
+        
+        @keyframes pulse-red {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .panel h3 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+        
+        .agent-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .agent-card:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .agent-card.selected {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .agent-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .agent-role {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+        }
+        
+        .agent-status {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff00;
+        }
+        
+        .config-section {
+            margin-bottom: 25px;
+        }
+        
+        .config-section h4 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .slider-container {
+            margin-bottom: 15px;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #00d4ff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .toggle-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+        
+        .toggle {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle.active {
+            background: rgba(0, 212, 255, 0.3);
+        }
+        
+        .toggle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ffffff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle.active::before {
+            left: 28px;
+            background: #00d4ff;
+        }
+        
+        .activation-controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .annotations {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 4: Swarm Activation - Introducing swarm intelligence -->
+    <a href="initial-dev.html" class="back-link">← Back to Editor</a>
+    
+    <div class="header">
+        <h1 class="logo">OmniCode AI</h1>
+        <p class="subtitle">Activate Swarm Intelligence</p>
+    </div>
+    
+    <div class="activation-container">
+        <!-- Swarm Overview -->
+        <div class="swarm-overview">
+            <h2 class="swarm-title">🚀 Swarm Intelligence System</h2>
+            <p class="swarm-description">
+                Deploy multiple AI agents that work collaboratively to accelerate your development process. 
+                Each agent specializes in different aspects of software development, creating a powerful collective intelligence.
+            </p>
+            <div class="activation-status">
+                <span class="status-indicator"></span>
+                Swarm Inactive - Ready for Activation
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Agent Selection -->
+            <div class="panel">
+                <h3>🤖 Select Swarm Agents</h3>
+                <p style="color: #b0b0b0; margin-bottom: 20px; font-size: 0.9rem;">
+                    Choose specialized AI agents for your development swarm. Each agent brings unique capabilities to the collective.
+                </p>
+                
+                <div class="agent-grid">
+                    <div class="agent-card selected">
+                        <div class="agent-icon">🧠</div>
+                        <div class="agent-name">Code Generator</div>
+                        <div class="agent-role">Creates new code</div>
+                        <div class="agent-status"></div>
+                    </div>
+                    <div class="agent-card selected">
+                        <div class="agent-icon">🔧</div>
+                        <div class="agent-name">Bug Fixer</div>
+                        <div class="agent-role">Debugs and fixes issues</div>
+                        <div class="agent-status"></div>
+                    </div>
+                    <div class="agent-card selected">
+                        <div class="agent-icon">⚡</div>
+                        <div class="agent-name">Optimizer</div>
+                        <div class="agent-role">Improves performance</div>
+                        <div class="agent-status"></div>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon">🧪</div>
+                        <div class="agent-name">Tester</div>
+                        <div class="agent-role">Creates test cases</div>
+                        <div class="agent-status"></div>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon">📚</div>
+                        <div class="agent-name">Documenter</div>
+                        <div class="agent-role">Writes documentation</div>
+                        <div class="agent-status"></div>
+                    </div>
+                    <div class="agent-card">
+                        <div class="agent-icon">🎨</div>
+                        <div class="agent-name">UI Designer</div>
+                        <div class="agent-role">Designs interfaces</div>
+                        <div class="agent-status"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Swarm Configuration -->
+            <div class="panel">
+                <h3>⚙️ Swarm Configuration</h3>
+                <p style="color: #b0b0b0; margin-bottom: 20px; font-size: 0.9rem;">
+                    Fine-tune your swarm's behavior and performance settings for optimal results.
+                </p>
+                
+                <div class="config-section">
+                    <h4>Agent Coordination</h4>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Independent</span>
+                            <span>Collaborative</span>
+                        </div>
+                        <input type="range" class="slider" min="0" max="100" value="75">
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <span class="toggle-label">Real-time Communication</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <span class="toggle-label">Cross-agent Learning</span>
+                        <div class="toggle active"></div>
+                    </div>
+                </div>
+                
+                <div class="config-section">
+                    <h4>Performance Settings</h4>
+                    <div class="slider-container">
+                        <div class="slider-label">
+                            <span>Conservative</span>
+                            <span>Aggressive</span>
+                        </div>
+                        <input type="range" class="slider" min="0" max="100" value="60">
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <span class="toggle-label">Auto-scaling</span>
+                        <div class="toggle"></div>
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <span class="toggle-label">Resource Optimization</span>
+                        <div class="toggle active"></div>
+                    </div>
+                </div>
+                
+                <div class="config-section">
+                    <h4>Quality Assurance</h4>
+                    <div class="toggle-container">
+                        <span class="toggle-label">Code Review Required</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <span class="toggle-label">Automated Testing</span>
+                        <div class="toggle active"></div>
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <span class="toggle-label">Security Scanning</span>
+                        <div class="toggle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Activation Controls -->
+        <div class="activation-controls">
+            <button class="btn btn-secondary">Test Swarm</button>
+            <a href="task-delegation.html" class="btn btn-primary">Activate Swarm</a>
+            <button class="btn btn-secondary">Save Configuration</button>
+        </div>
+    </div>
+    
+    <!-- Detailed Annotations for Screen 4 -->
+    <div class="annotations">
+        <strong>Screen 4 Annotations:</strong><br>
+        • <strong>Swarm Overview:</strong> Explains swarm intelligence concept with activation status<br>
+        • <strong>Agent Selection:</strong> Grid of specialized agents with selection states and status indicators<br>
+        • <strong>Configuration Sliders:</strong> Adjustable settings for coordination and performance levels<br>
+        • <strong>Toggle Switches:</strong> On/off controls for various swarm features<br>
+        • <strong>Activate Swarm Button:</strong> Primary CTA leading to task delegation screen<br>
+        • <strong>Test Swarm:</strong> Preview swarm behavior before full activation<br>
+        • <strong>Agent Status Dots:</strong> Green indicators showing agent readiness<br>
+        • <strong>Configuration Sections:</strong> Organized settings for coordination, performance, and quality
+    </div>
+</body>
+</html>

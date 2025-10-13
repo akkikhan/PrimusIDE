@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Optimization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #090979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        
+        .optimization-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .optimization-header {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .optimization-title {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .optimization-description {
+            font-size: 1rem;
+            color: #cccccc;
+            margin-bottom: 20px;
+        }
+        
+        .learning-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff00;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+        }
+        
+        .optimization-suggestions {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .suggestion-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .suggestion-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .suggestion-icon {
+            font-size: 1.5rem;
+        }
+        
+        .suggestion-title {
+            font-size: 1.1rem;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        
+        .suggestion-priority {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        .priority-high {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+        }
+        
+        .priority-medium {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+        }
+        
+        .priority-low {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+        
+        .suggestion-description {
+            color: #cccccc;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .code-improvement {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .improvement-before {
+            color: #ff6b6b;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+        
+        .improvement-after {
+            color: #00ff00;
+        }
+        
+        .suggestion-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-apply {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-apply:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-skip {
+            background: rgba(255, 255, 255, 0.1);
+            color: #cccccc;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-skip:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .learning-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            height: fit-content;
+        }
+        
+        .panel-title {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+        
+        .learning-insights {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .insight-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .insight-title {
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        
+        .insight-description {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            line-height: 1.4;
+        }
+        
+        .performance-metrics {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .metrics-title {
+            font-weight: 600;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .metric-label {
+            color: #cccccc;
+        }
+        
+        .metric-value {
+            color: #ffffff;
+            font-weight: 500;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+            border-radius: 2px;
+        }
+        
+        .swarm-memory {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .memory-title {
+            font-weight: 600;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .memory-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .memory-icon {
+            font-size: 1rem;
+        }
+        
+        .memory-text {
+            color: #cccccc;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn-primary {
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .annotations {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 9: Optimization - Swarm learning and improvement -->
+    <a href="results-integration.html" class="back-link">← Back to Results Integration</a>
+    
+    <div class="header">
+        <h1 class="logo">OmniCode AI</h1>
+        <p class="subtitle">Swarm Learning & Optimization</p>
+    </div>
+    
+    <div class="optimization-container">
+        <!-- Optimization Header -->
+        <div class="optimization-header">
+            <h2 class="optimization-title">🧠 Swarm Intelligence Optimization</h2>
+            <p class="optimization-description">
+                The swarm has analyzed the development process and learned from this session. 
+                Here are optimization suggestions to improve future performance and code quality.
+            </p>
+            
+            <div class="learning-stats">
+                <div class="stat-card">
+                    <div class="stat-value">+15%</div>
+                    <div class="stat-label">Efficiency Gain</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">23</div>
+                    <div class="stat-label">Patterns Learned</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">96%</div>
+                    <div class="stat-label">Prediction Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2.1x</div>
+                    <div class="stat-label">Speed Improvement</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Optimization Suggestions -->
+            <div class="optimization-suggestions">
+                <!-- Performance Optimization -->
+                <div class="suggestion-card">
+                    <div class="suggestion-header">
+                        <div class="suggestion-icon">⚡</div>
+                        <div class="suggestion-title">Performance Optimization</div>
+                        <span class="suggestion-priority priority-high">High Impact</span>
+                    </div>
+                    
+                    <div class="suggestion-description">
+                        Optimize database queries and implement caching to improve response times by up to 40%.
+                    </div>
+                    
+                    <div class="code-improvement">
+                        <div class="improvement-before">// Inefficient query</div>
+                        <div class="improvement-before">const products = await Product.findAll();</div>
+                        <div class="improvement-after">// Optimized with caching</div>
+                        <div class="improvement-after">const products = await cache.get('products') || await Product.findAll();</div>
+                        <div class="improvement-after">if (!cache.has('products')) cache.set('products', products, 300);</div>
+                    </div>
+                    
+                    <div class="suggestion-actions">
+                        <button class="btn btn-skip">Skip</button>
+                        <button class="btn btn-apply">Apply Optimization</button>
+                    </div>
+                </div>
+                
+                <!-- Code Quality Improvement -->
+                <div class="suggestion-card">
+                    <div class="suggestion-header">
+                        <div class="suggestion-icon">🎯</div>
+                        <div class="suggestion-title">Error Handling Enhancement</div>
+                        <span class="suggestion-priority priority-medium">Medium Impact</span>
+                    </div>
+                    
+                    <div class="suggestion-description">
+                        Add comprehensive error handling and logging to improve debugging and user experience.
+                    </div>
+                    
+                    <div class="code-improvement">
+                        <div class="improvement-before">// Basic error handling</div>
+                        <div class="improvement-before">try { await processPayment(); } catch (e) { console.error(e); }</div>
+                        <div class="improvement-after">// Enhanced error handling</div>
+                        <div class="improvement-after">try {</div>
+                        <div class="improvement-after">  await processPayment();</div>
+                        <div class="improvement-after">} catch (e) {</div>
+                        <div class="improvement-after">  logger.error('Payment failed', { error: e, userId });</div>
+                        <div class="improvement-after">  throw new PaymentError('Payment processing failed', e);</div>
+                        <div class="improvement-after">}</div>
+                    </div>
+                    
+                    <div class="suggestion-actions">
+                        <button class="btn btn-skip">Skip</button>
+                        <button class="btn btn-apply">Apply Enhancement</button>
+                    </div>
+                </div>
+                
+                <!-- Security Improvement -->
+                <div class="suggestion-card">
+                    <div class="suggestion-header">
+                        <div class="suggestion-icon">🔒</div>
+                        <div class="suggestion-title">Security Hardening</div>
+                        <span class="suggestion-priority priority-high">High Impact</span>
+                    </div>
+                    
+                    <div class="suggestion-description">
+                        Implement input validation and SQL injection protection to secure the application.
+                    </div>
+                    
+                    <div class="code-improvement">
+                        <div class="improvement-before">// Vulnerable query</div>
+                        <div class="improvement-before">const query = `SELECT * FROM users WHERE email = '${email}'`;</div>
+                        <div class="improvement-after">// Secure parameterized query</div>
+                        <div class="improvement-after">const query = 'SELECT * FROM users WHERE email = $1';</div>
+                        <div class="improvement-after">const result = await db.query(query, [email]);</div>
+                    </div>
+                    
+                    <div class="suggestion-actions">
+                        <button class="btn btn-skip">Skip</button>
+                        <button class="btn btn-apply">Apply Security Fix</button>
+                    </div>
+                </div>
+                
+                <!-- Architecture Improvement -->
+                <div class="suggestion-card">
+                    <div class="suggestion-header">
+                        <div class="suggestion-icon">🏗️</div>
+                        <div class="suggestion-title">Architecture Refactoring</div>
+                        <span class="suggestion-priority priority-medium">Medium Impact</span>
+                    </div>
+                    
+                    <div class="suggestion-description">
+                        Restructure components for better maintainability and scalability using design patterns.
+                    </div>
+                    
+                    <div class="code-improvement">
+                        <div class="improvement-before">// Monolithic component</div>
+                        <div class="improvement-before">export const ProductList = () => { /* 200+ lines */ }</div>
+                        <div class="improvement-after">// Modular architecture</div>
+                        <div class="improvement-after">export const ProductList = () => (</div>
+                        <div class="improvement-after">  &lt;ProductProvider&gt;</div>
+                        <div class="improvement-after">    &lt;ProductFilters /&gt;</div>
+                        <div class="improvement-after">    &lt;ProductGrid /&gt;</div>
+                        <div class="improvement-after">    &lt;ProductPagination /&gt;</div>
+                        <div class="improvement-after">  &lt;/ProductProvider&gt;</div>
+                        <div class="improvement-after">);</div>
+                    </div>
+                    
+                    <div class="suggestion-actions">
+                        <button class="btn btn-skip">Skip</button>
+                        <button class="btn btn-apply">Apply Refactoring</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Learning Panel -->
+            <div class="learning-panel">
+                <h3 class="panel-title">📚 Swarm Learning Insights</h3>
+                
+                <div class="learning-insights">
+                    <div class="insight-item">
+                        <div class="insight-title">Pattern Recognition</div>
+                        <div class="insight-description">
+                            Learned that e-commerce projects benefit from early database schema design and authentication setup.
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-title">Collaboration Efficiency</div>
+                        <div class="insight-description">
+                            Code Generator and Bug Fixer agents work best when synchronized on schema changes.
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-title">Quality Improvement</div>
+                        <div class="insight-description">
+                            Adding type safety early reduces debugging time by 35% in subsequent development.
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-title">Performance Optimization</div>
+                        <div class="insight-description">
+                            Database queries should be optimized before implementing complex business logic.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="performance-metrics">
+                    <div class="metrics-title">📊 Session Performance</div>
+                    
+                    <div class="metric-item">
+                        <span class="metric-label">Code Quality Score</span>
+                        <span class="metric-value">94/100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 94%;"></div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <span class="metric-label">Test Coverage</span>
+                        <span class="metric-value">78%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%;"></div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <span class="metric-label">Performance Score</span>
+                        <span class="metric-value">89%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 89%;"></div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <span class="metric-label">Security Score</span>
+                        <span class="metric-value">92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%;"></div>
+                    </div>
+                </div>
+                
+                <div class="swarm-memory">
+                    <div class="memory-title">🧠 Swarm Memory Updates</div>
+                    
+                    <div class="memory-item">
+                        <div class="memory-icon">💾</div>
+                        <div class="memory-text">Saved authentication patterns for future React projects</div>
+                    </div>
+                    
+                    <div class="memory-item">
+                        <div class="memory-icon">📈</div>
+                        <div class="memory-text">Updated performance benchmarks for e-commerce applications</div>
+                    </div>
+                    
+                    <div class="memory-item">
+                        <div class="memory-icon">🔧</div>
+                        <div class="memory-text">Learned optimal agent coordination for database-driven apps</div>
+                    </div>
+                    
+                    <div class="memory-item">
+                        <div class="memory-icon">🎯</div>
+                        <div class="memory-text">Improved task estimation accuracy by 23%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn-secondary">Save Optimizations</button>
+            <a href="completion-export.html" class="btn-primary">Complete Project</a>
+            <button class="btn-secondary">Generate Report</button>
+        </div>
+    </div>
+    
+    <!-- Detailed Annotations for Screen 9 -->
+    <div class="annotations">
+        <strong>Screen 9 Annotations:</strong><br>
+        • <strong>Learning Stats:</strong> Efficiency gains, patterns learned, prediction accuracy, speed improvements<br>
+        • <strong>Optimization Suggestions:</strong> Performance, error handling, security, architecture improvements<br>
+        • <strong>Code Improvements:</strong> Before/after code examples with syntax highlighting<br>
+        • <strong>Learning Insights:</strong> Pattern recognition, collaboration efficiency, quality improvements<br>
+        • <strong>Performance Metrics:</strong> Quality, test coverage, performance, security scores with progress bars<br>
+        • <strong>Swarm Memory:</strong> Learned patterns and improvements saved for future sessions<br>
+        • <strong>Priority Levels:</strong> High/Medium impact indicators for optimization suggestions<br>
+        • <strong>Complete Project Button:</strong> Primary CTA to final completion and export screen
+    </div>
+</body>
+</html>

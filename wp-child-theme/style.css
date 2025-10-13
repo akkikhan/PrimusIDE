@@ -1,0 +1,13 @@
+/*
+ Theme Name: Custom Search Child
+ Theme URI: (internal)
+ Description: Child theme to restore Institution & License search page templates safely.
+ Author: (team)
+ Template: twentynineteen
+ Version: 1.0.0
+ Text Domain: custom-search-child
+*/
+
+/* Import parent styles (WP will handle if functions.php enqueues parent) */
+
+/* Custom minimal overrides can go below; keep lean for auditability. */

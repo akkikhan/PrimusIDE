@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Progress Monitoring</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #090979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        
+        .monitoring-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            margin-bottom: 10px;
+        }
+        
+        .metric-trend {
+            font-size: 0.8rem;
+            color: #00ff00;
+        }
+        
+        .metric-trend.negative {
+            color: #ff6b6b;
+        }
+        
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .chart-title {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .time-selector {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #ffffff;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        
+        .chart-placeholder {
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+        
+        .agent-performance {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .performance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .performance-title {
+            font-size: 1.3rem;
+            color: #00d4ff;
+        }
+        
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .agent-metric {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .agent-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .agent-name {
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .agent-stats {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+        }
+        
+        .agent-progress {
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+            border-radius: 3px;
+        }
+        
+        .bottlenecks-alerts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .alerts-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .alerts-title {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+        
+        .alert-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .alert-warning {
+            background: rgba(255, 165, 0, 0.1);
+            border-left: 3px solid #ffa500;
+        }
+        
+        .alert-error {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 3px solid #ff0000;
+        }
+        
+        .alert-success {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid #00ff00;
+        }
+        
+        .alert-icon {
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+        
+        .alert-content h4 {
+            color: #ffffff;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+        
+        .alert-content p {
+            color: #b0b0b0;
+            font-size: 0.8rem;
+        }
+        
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .annotations {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 7: Progress Monitoring - Tracking swarm performance -->
+    <a href="parallel-dev.html" class="back-link">← Back to Parallel Development</a>
+    
+    <div class="header">
+        <h1 class="logo">OmniCode AI</h1>
+        <p class="subtitle">Swarm Performance Monitoring</p>
+    </div>
+    
+    <div class="monitoring-container">
+        <!-- Key Metrics Overview -->
+        <div class="overview-cards">
+            <div class="metric-card">
+                <div class="metric-value">73%</div>
+                <div class="metric-label">Overall Progress</div>
+                <div class="metric-trend">↑ +8% in last hour</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">4</div>
+                <div class="metric-label">Active Agents</div>
+                <div class="metric-trend">All systems operational</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">23m</div>
+                <div class="metric-label">Time Elapsed</div>
+                <div class="metric-trend">On schedule</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">94%</div>
+                <div class="metric-label">Code Quality</div>
+                <div class="metric-trend">↑ +2% improvement</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">156</div>
+                <div class="metric-label">Lines of Code</div>
+                <div class="metric-trend">Generated this session</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">2.3x</div>
+                <div class="metric-label">Speed Multiplier</div>
+                <div class="metric-trend">vs single developer</div>
+            </div>
+        </div>
+        
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">📈 Progress Over Time</div>
+                    <div class="chart-controls">
+                        <select class="time-selector">
+                            <option>Last Hour</option>
+                            <option>Last 24 Hours</option>
+                            <option>Last Week</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    [Progress Chart]<br>
+                    <small>Steady upward trend with 73% completion</small>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">⚡ Agent Productivity</div>
+                    <div class="chart-controls">
+                        <select class="time-selector">
+                            <option>Real-time</option>
+                            <option>Last Hour</option>
+                            <option>Today</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    [Productivity Chart]<br>
+                    <small>Code Generator: 45 LOC/h | Bug Fixer: 32 LOC/h</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Agent Performance -->
+        <div class="agent-performance">
+            <div class="performance-header">
+                <h3 class="performance-title">🤖 Agent Performance Metrics</h3>
+                <div style="font-size: 0.9rem; color: #b0b0b0;">Real-time updates</div>
+            </div>
+            
+            <div class="performance-grid">
+                <div class="agent-metric">
+                    <div class="agent-header">
+                        <div class="agent-avatar">🧠</div>
+                        <div class="agent-name">Code Generator</div>
+                    </div>
+                    <div class="agent-stats">Tasks: 2/2 | Success: 100%</div>
+                    <div class="agent-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #b0b0b0; margin-top: 5px;">Efficiency: 95%</div>
+                    </div>
+                </div>
+                
+                <div class="agent-metric">
+                    <div class="agent-header">
+                        <div class="agent-avatar">🔧</div>
+                        <div class="agent-name">Bug Fixer</div>
+                    </div>
+                    <div class="agent-stats">Tasks: 1/1 | Success: 100%</div>
+                    <div class="agent-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #b0b0b0; margin-top: 5px;">Efficiency: 92%</div>
+                    </div>
+                </div>
+                
+                <div class="agent-metric">
+                    <div class="agent-header">
+                        <div class="agent-avatar">⚡</div>
+                        <div class="agent-name">Optimizer</div>
+                    </div>
+                    <div class="agent-stats">Tasks: 1/1 | Success: 100%</div>
+                    <div class="agent-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #b0b0b0; margin-top: 5px;">Efficiency: 88%</div>
+                    </div>
+                </div>
+                
+                <div class="agent-metric">
+                    <div class="agent-header">
+                        <div class="agent-avatar">🧪</div>
+                        <div class="agent-name">Tester</div>
+                    </div>
+                    <div class="agent-stats">Tasks: 1/2 | Success: 85%</div>
+                    <div class="agent-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 50%;"></div>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #b0b0b0; margin-top: 5px;">Efficiency: 76%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottlenecks & Alerts -->
+        <div class="bottlenecks-alerts">
+            <div class="alerts-panel">
+                <h3 class="alerts-title">⚠️ Active Alerts</h3>
+                
+                <div class="alert-item alert-warning">
+                    <div class="alert-icon">⏱️</div>
+                    <div class="alert-content">
+                        <h4>Payment Integration Delay</h4>
+                        <p>Tester agent experiencing API rate limits</p>
+                    </div>
+                </div>
+                
+                <div class="alert-item alert-success">
+                    <div class="alert-icon">✅</div>
+                    <div class="alert-content">
+                        <h4>Database Schema Optimized</h4>
+                        <p>15% performance improvement detected</p>
+                    </div>
+                </div>
+                
+                <div class="alert-item alert-error">
+                    <div class="alert-icon">🚨</div>
+                    <div class="alert-content">
+                        <h4>Code Review Required</h4>
+                        <p>Authentication module needs manual review</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alerts-panel">
+                <h3 class="alerts-title">🎯 Performance Insights</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span style="font-size: 0.9rem; color: #cccccc;">Code Quality Score</span>
+                        <span style="font-size: 0.9rem; color: #00d4ff;">94/100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 94%; background: linear-gradient(90deg, #00ff00, #00cc00);"></div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span style="font-size: 0.9rem; color: #cccccc;">Test Coverage</span>
+                        <span style="font-size: 0.9rem; color: #00d4ff;">78%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%; background: linear-gradient(90deg, #ffa500, #ff8c00);"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span style="font-size: 0.9rem; color: #cccccc;">Performance Score</span>
+                        <span style="font-size: 0.9rem; color: #00d4ff;">89%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 89%; background: linear-gradient(90deg, #00d4ff, #0099cc);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn btn-secondary">Export Report</button>
+            <a href="results-integration.html" class="btn btn-primary">Review Results</a>
+            <button class="btn btn-secondary">Generate Summary</button>
+        </div>
+    </div>
+    
+    <!-- Detailed Annotations for Screen 7 -->
+    <div class="annotations">
+        <strong>Screen 7 Annotations:</strong><br>
+        • <strong>Key Metrics:</strong> 6 overview cards with progress, agents, time, quality, code volume, speed multiplier<br>
+        • <strong>Progress Charts:</strong> Visual representations of progress over time and agent productivity<br>
+        • <strong>Agent Performance:</strong> Individual metrics for each agent with efficiency scores<br>
+        • <strong>Active Alerts:</strong> Warning, success, and error alerts with detailed messages<br>
+        • <strong>Performance Insights:</strong> Quality scores, test coverage, and performance metrics<br>
+        • <strong>Real-time Updates:</strong> All metrics update in real-time showing live swarm activity<br>
+        • <strong>Review Results Button:</strong> Primary CTA to results integration screen
+    </div>
+</body>
+</html>

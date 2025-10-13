@@ -1,0 +1,244 @@
+{
+  "timestamp": "2025-09-24T21:24:31.376Z",
+  "filesAnalyzed": 214,
+  "issuesFound": 18,
+  "fixesApplied": 18,
+  "issues": [
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\openAIProvider.ts",
+      "line": 76,
+      "content": "} catch(e){ reject(e); }",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\providerRegistry.ts",
+      "line": 61,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\providerRegistry.ts",
+      "line": 134,
+      "content": "} catch(e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\providerRegistry.ts",
+      "line": 138,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\providers\\RealOpenAIProvider.ts",
+      "line": 239,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\retrieval\\indexer.ts",
+      "line": 117,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\retrieval\\reindexManager.ts",
+      "line": 129,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 285,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 347,
+      "content": "setTimeout(()=> { try { autoUpdater.checkForUpdates(); } catch(e){ console.warn('[Updater] check failed', e); } }, 4000);",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 348,
+      "content": "} catch(e){ console.warn('[Updater] init failed', e); }",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 364,
+      "content": "} catch(e){ console.warn('[Retrieval][bulk] failed', e); }",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 768,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\App.tsx",
+      "line": 865,
+      "content": "} catch(e){ alert('Failed to read last context timings'); }",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\App.tsx",
+      "line": 887,
+      "content": "} catch(e){ alert('Failed to toggle autoUpdate setting'); }",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\App.tsx",
+      "line": 1002,
+      "content": "} catch (e) {",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\components\\DiagnosticsPanel.tsx",
+      "line": 10,
+      "content": "try { const s = (window as any).primus?.diagnostics?.snapshot?.(); setSnap(s); } catch(e){ console.warn('diag fail', e); }",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\contextAwareness\\SmartCodeIntelligence.ts",
+      "line": 494,
+      "content": "'  } catch (error) {\\n    console.error(error);\\n    throw error;\\n  }\\n}$1'",
+      "pattern": "Missing error message",
+      "severity": "warning"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\hooks\\useAI.ts",
+      "line": 39,
+      "content": "} catch(e){ /* ignore */ }",
+      "pattern": "Any type without annotation",
+      "severity": "type"
+    }
+  ],
+  "fixes": [
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\openAIProvider.ts",
+      "line": 76,
+      "before": "} catch(e){ reject(e); }",
+      "after": "} catch (e: any){ reject(e); }"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\providerRegistry.ts",
+      "line": 138,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\providerRegistry.ts",
+      "line": 134,
+      "before": "} catch(e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\embeddings\\providerRegistry.ts",
+      "line": 61,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\providers\\RealOpenAIProvider.ts",
+      "line": 239,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\retrieval\\indexer.ts",
+      "line": 117,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\ai\\retrieval\\reindexManager.ts",
+      "line": 129,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 768,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 364,
+      "before": "} catch(e){ console.warn('[Retrieval][bulk] failed', e); }",
+      "after": "} catch (e: any){ console.warn('[Retrieval][bulk] failed', e); }"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 348,
+      "before": "} catch(e){ console.warn('[Updater] init failed', e); }",
+      "after": "} catch (e: any){ console.warn('[Updater] init failed', e); }"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 347,
+      "before": "setTimeout(()=> { try { autoUpdater.checkForUpdates(); } catch(e){ console.warn('[Updater] check failed', e); } }, 4000);",
+      "after": "setTimeout(()=> { try { autoUpdater.checkForUpdates(); } catch (e: any){ console.warn('[Updater] check failed', e); } }, 4000);"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\main\\main.ts",
+      "line": 285,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\App.tsx",
+      "line": 1002,
+      "before": "} catch (e) {",
+      "after": "} catch (e: any) {"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\App.tsx",
+      "line": 887,
+      "before": "} catch(e){ alert('Failed to toggle autoUpdate setting'); }",
+      "after": "} catch (e: any){ alert('Failed to toggle autoUpdate setting'); }"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\App.tsx",
+      "line": 865,
+      "before": "} catch(e){ alert('Failed to read last context timings'); }",
+      "after": "} catch (e: any){ alert('Failed to read last context timings'); }"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\components\\DiagnosticsPanel.tsx",
+      "line": 10,
+      "before": "try { const s = (window as any).primus?.diagnostics?.snapshot?.(); setSnap(s); } catch(e){ console.warn('diag fail', e); }",
+      "after": "try { const s = (window as any).primus?.diagnostics?.snapshot?.(); setSnap(s); } catch (e: any){ console.warn('diag fail', e); }"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\contextAwareness\\SmartCodeIntelligence.ts",
+      "line": 494,
+      "before": "'  } catch (error) {\\n    console.error(error);\\n    throw error;\\n  }\\n}$1'",
+      "after": "'  } catch (error) {\\n    console.error('Error occurred:', error);\\n    throw error;\\n  }\\n}$1'"
+    },
+    {
+      "file": "C:\\Users\\aakib\\Documents\\Primus-IDE\\src\\renderer\\hooks\\useAI.ts",
+      "line": 39,
+      "before": "} catch(e){ /* ignore */ }",
+      "after": "} catch (e: any){ /* ignore */ }"
+    }
+  ]
+}

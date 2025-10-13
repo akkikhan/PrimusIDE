@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Task Delegation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #090979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        
+        .delegation-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .project-overview {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            color: #00d4ff;
+        }
+        
+        .swarm-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            color: #00d4ff;
+            font-size: 0.9rem;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff00;
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        .tasks-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .panel-title {
+            font-size: 1.3rem;
+            color: #00d4ff;
+        }
+        
+        .add-task-btn {
+            padding: 8px 16px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: #00d4ff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .add-task-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+        }
+        
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .task-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .task-item:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        .task-item.assigned {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+        }
+        
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .task-title {
+            font-weight: 600;
+            color: #ffffff;
+            flex: 1;
+        }
+        
+        .task-priority {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .priority-high {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+        }
+        
+        .priority-medium {
+            background: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+        }
+        
+        .priority-low {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+        }
+        
+        .task-description {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .assigned-agent {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #00d4ff;
+            font-weight: 500;
+        }
+        
+        .agent-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .agents-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .agent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .agent-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .agent-item:hover {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        .agent-item.selected {
+            border-color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+        }
+        
+        .agent-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .agent-info h4 {
+            color: #ffffff;
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+        }
+        
+        .agent-info p {
+            color: #b0b0b0;
+            font-size: 0.8rem;
+        }
+        
+        .agent-status {
+            margin-left: auto;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff00;
+        }
+        
+        .delegation-controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .annotations {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .connection-line {
+            position: absolute;
+            width: 2px;
+            background: rgba(0, 212, 255, 0.5);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 5: Task Delegation - Assigning work to agents -->
+    <a href="swarm-activation.html" class="back-link">← Back to Swarm Activation</a>
+    
+    <div class="header">
+        <h1 class="logo">OmniCode AI</h1>
+        <p class="subtitle">Task Delegation & Swarm Coordination</p>
+    </div>
+    
+    <div class="delegation-container">
+        <!-- Project Overview -->
+        <div class="project-overview">
+            <div class="project-header">
+                <h2 class="project-title">E-commerce Platform Development</h2>
+                <div class="swarm-status">
+                    <span class="status-dot"></span>
+                    Swarm Active - 3 Agents Online
+                </div>
+            </div>
+            <p style="color: #b0b0b0; margin-bottom: 15px;">
+                Break down your development tasks and assign them to specialized AI agents for parallel processing.
+            </p>
+            <div style="display: flex; gap: 20px; font-size: 0.9rem; color: #cccccc;">
+                <span>📋 5 Tasks Created</span>
+                <span>✅ 2 Tasks Assigned</span>
+                <span>⏳ 3 Tasks Pending</span>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Tasks Panel -->
+            <div class="tasks-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">📋 Development Tasks</h3>
+                    <button class="add-task-btn">+ Add Task</button>
+                </div>
+                
+                <div class="task-list">
+                    <div class="task-item assigned">
+                        <div class="task-header">
+                            <div class="task-title">Implement User Authentication</div>
+                            <span class="task-priority priority-high">High</span>
+                        </div>
+                        <div class="task-description">
+                            Create login/signup system with JWT tokens and password hashing
+                        </div>
+                        <div class="task-meta">
+                            <span>Est: 2-3 hours</span>
+                            <div class="assigned-agent">
+                                <span class="agent-avatar">🧠</span>
+                                Code Generator
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item assigned">
+                        <div class="task-header">
+                            <div class="task-title">Design Product Database Schema</div>
+                            <span class="task-priority priority-medium">Medium</span>
+                        </div>
+                        <div class="task-description">
+                            Create database tables for products, categories, and inventory
+                        </div>
+                        <div class="task-meta">
+                            <span>Est: 1-2 hours</span>
+                            <div class="assigned-agent">
+                                <span class="agent-avatar">🔧</span>
+                                Bug Fixer
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <div class="task-header">
+                            <div class="task-title">Build Shopping Cart Component</div>
+                            <span class="task-priority priority-medium">Medium</span>
+                        </div>
+                        <div class="task-description">
+                            Create React component for cart functionality with add/remove items
+                        </div>
+                        <div class="task-meta">
+                            <span>Est: 2-3 hours</span>
+                            <span style="color: #888;">Unassigned</span>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <div class="task-header">
+                            <div class="task-title">Implement Payment Processing</div>
+                            <span class="task-priority priority-high">High</span>
+                        </div>
+                        <div class="task-description">
+                            Integrate Stripe payment gateway with order processing
+                        </div>
+                        <div class="task-meta">
+                            <span>Est: 3-4 hours</span>
+                            <span style="color: #888;">Unassigned</span>
+                        </div>
+                    </div>
+                    
+                    <div class="task-item">
+                        <div class="task-header">
+                            <div class="task-title">Create Product Search & Filter</div>
+                            <span class="task-priority priority-low">Low</span>
+                        </div>
+                        <div class="task-description">
+                            Add search functionality and category filtering to product list
+                        </div>
+                        <div class="task-meta">
+                            <span>Est: 1-2 hours</span>
+                            <span style="color: #888;">Unassigned</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agents Panel -->
+            <div class="agents-panel">
+                <h3 class="panel-title" style="margin-bottom: 20px;">🤖 Available Agents</h3>
+                
+                <div class="agent-list">
+                    <div class="agent-item selected">
+                        <div class="agent-icon">🧠</div>
+                        <div class="agent-info">
+                            <h4>Code Generator</h4>
+                            <p>Creates new code</p>
+                        </div>
+                        <div class="agent-status"></div>
+                    </div>
+                    
+                    <div class="agent-item selected">
+                        <div class="agent-icon">🔧</div>
+                        <div class="agent-info">
+                            <h4>Bug Fixer</h4>
+                            <p>Debugs & fixes issues</p>
+                        </div>
+                        <div class="agent-status"></div>
+                    </div>
+                    
+                    <div class="agent-item">
+                        <div class="agent-icon">⚡</div>
+                        <div class="agent-info">
+                            <h4>Optimizer</h4>
+                            <p>Improves performance</p>
+                        </div>
+                        <div class="agent-status"></div>
+                    </div>
+                    
+                    <div class="agent-item">
+                        <div class="agent-icon">🧪</div>
+                        <div class="agent-info">
+                            <h4>Tester</h4>
+                            <p>Creates test cases</p>
+                        </div>
+                        <div class="agent-status"></div>
+                    </div>
+                    
+                    <div class="agent-item">
+                        <div class="agent-icon">📚</div>
+                        <div class="agent-info">
+                            <h4>Documenter</h4>
+                            <p>Writes documentation</p>
+                        </div>
+                        <div class="agent-status"></div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div style="font-size: 0.9rem; color: #b0b0b0; margin-bottom: 10px;">
+                        💡 <strong>Smart Assignment:</strong> Drag tasks to agents or let AI auto-assign based on expertise
+                    </div>
+                    <button class="btn btn-secondary" style="width: 100%;">Auto-Assign Tasks</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Delegation Controls -->
+        <div class="delegation-controls">
+            <button class="btn btn-secondary">Save Assignments</button>
+            <a href="parallel-dev.html" class="btn btn-primary">Start Parallel Development</a>
+            <button class="btn btn-secondary">Export Task List</button>
+        </div>
+    </div>
+    
+    <!-- Detailed Annotations for Screen 5 -->
+    <div class="annotations">
+        <strong>Screen 5 Annotations:</strong><br>
+        • <strong>Task List:</strong> Development tasks with priority levels, descriptions, and assignment status<br>
+        • <strong>Agent Panel:</strong> Available swarm agents with selection states and status indicators<br>
+        • <strong>Task Assignment:</strong> Visual indication of assigned tasks with agent avatars<br>
+        • <strong>Auto-Assign:</strong> AI-powered automatic task distribution based on agent expertise<br>
+        • <strong>Task Priority:</strong> Color-coded priority system (High=Red, Medium=Orange, Low=Green)<br>
+        • <strong>Start Parallel Development:</strong> Primary CTA to begin swarm execution<br>
+        • <strong>Agent Status Dots:</strong> Green indicators showing agent availability<br>
+        • <strong>Task Metadata:</strong> Estimated time and current assignment status for each task
+    </div>
+</body>
+</html>

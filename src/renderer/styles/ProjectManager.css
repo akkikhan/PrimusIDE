@@ -1,0 +1,349 @@
+/* Project Manager Styles */
+.project-manager {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 400px;
+  height: 100vh;
+  background: var(--panel-background);
+  border-left: 1px solid var(--border-color);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-large);
+  animation: slideInRight 0.2s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.project-manager-header {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--panel-header-background);
+  flex-shrink: 0;
+}
+
+.project-manager-header h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.project-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.project-actions button {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-small);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-actions button:hover {
+  background: var(--background-hover);
+  color: var(--text-primary);
+}
+
+.project-manager-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+/* New Project Form */
+.new-project-form h3 {
+  margin: 0 0 var(--spacing-lg) 0;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.template-grid {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.template-card {
+  display: flex;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  background: var(--background-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.template-card:hover {
+  background: var(--background-hover);
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.template-icon {
+  font-size: 24px;
+  margin-right: var(--spacing-md);
+  display: flex;
+  align-items: center;
+}
+
+.template-info h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.template-info p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.form-actions button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.form-actions button:hover {
+  background: var(--background-hover);
+}
+
+/* Projects List */
+.projects-list h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.no-projects {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: var(--spacing-lg) 0;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  background: var(--background-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.project-item:hover {
+  background: var(--background-hover);
+  border-color: var(--accent-color-dim);
+}
+
+.project-item.selected {
+  border-color: var(--accent-color);
+  background: var(--accent-color-transparent);
+}
+
+.project-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.project-icon {
+  font-size: 20px;
+  margin-right: var(--spacing-md);
+}
+
+.project-details h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.project-path {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: 'Courier New', monospace;
+}
+
+.project-last-opened {
+  margin: 0;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.project-actions-menu {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-small);
+  cursor: pointer;
+  font-size: 12px;
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.delete-btn:hover {
+  opacity: 1;
+  background: var(--error-color-transparent);
+}
+
+/* Project Tasks */
+.project-tasks {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+.project-tasks h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.tasks-grid {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  background: var(--background-secondary);
+}
+
+.task-info {
+  flex: 1;
+}
+
+.task-info h4 {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.task-info p {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.task-info code {
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--background-tertiary);
+  padding: 2px 4px;
+  border-radius: var(--radius-small);
+}
+
+.run-task-btn {
+  background: var(--accent-color);
+  border: none;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-medium);
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.run-task-btn:hover:not(:disabled) {
+  background: var(--accent-color-hover);
+}
+
+.run-task-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Scrollbar styling */
+.project-manager-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.project-manager-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-manager-content::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.project-manager-content::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .template-card {
+  background: var(--background-tertiary);
+}
+
+[data-theme="dark"] .project-item {
+  background: var(--background-tertiary);
+}
+
+[data-theme="dark"] .task-card {
+  background: var(--background-tertiary);
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1200px) {
+  .project-manager {
+    width: 350px;
+  }
+}
+
+@media (max-width: 800px) {
+  .project-manager {
+    width: 100%;
+    right: 0;
+  }
+}

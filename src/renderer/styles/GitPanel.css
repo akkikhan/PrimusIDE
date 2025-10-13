@@ -1,0 +1,309 @@
+/* Git Panel Styles */
+.git-panel {
+  position: fixed;
+  left: 60px;
+  top: 0;
+  width: 300px;
+  height: 100vh;
+  background: var(--panel-background);
+  border-right: 1px solid var(--border-color);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-medium);
+}
+
+.git-header {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--panel-header-background);
+  flex-shrink: 0;
+}
+
+.git-header h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.git-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.git-actions button {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-small);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.git-actions button:hover {
+  background: var(--background-hover);
+  color: var(--text-primary);
+}
+
+.git-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+.git-not-repo {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.git-not-repo button {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.git-not-repo button:hover {
+  background: var(--accent-color-hover);
+}
+
+.git-branch-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm);
+  background: var(--background-secondary);
+  border-radius: var(--radius-medium);
+  margin-bottom: var(--spacing-md);
+}
+
+.branch-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.sync-status {
+  display: flex;
+  gap: var(--spacing-xs);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.sync-status span {
+  padding: 2px 6px;
+  background: var(--background-tertiary);
+  border-radius: var(--radius-small);
+}
+
+.git-sync-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.git-sync-actions button {
+  flex: 1;
+  padding: var(--spacing-sm);
+  background: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.git-sync-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.git-sync-actions button:hover:not(:disabled) {
+  background: var(--background-hover);
+}
+
+.commit-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.commit-input {
+  width: 100%;
+  min-height: 60px;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 12px;
+  resize: vertical;
+  margin-bottom: var(--spacing-sm);
+}
+
+.commit-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px var(--accent-color-transparent);
+}
+
+.commit-input::placeholder {
+  color: var(--text-muted);
+}
+
+.commit-button {
+  width: 100%;
+  padding: var(--spacing-sm);
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-medium);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.commit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.commit-button:hover:not(:disabled) {
+  background: var(--accent-color-hover);
+}
+
+.changes-section h3 {
+  font-size: 13px;
+  font-weight: 500;
+  margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+  color: var(--text-primary);
+  padding-left: var(--spacing-xs);
+}
+
+.git-file {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-bottom: 2px;
+  border-radius: var(--radius-small);
+  transition: background-color 0.15s ease;
+}
+
+.git-file:hover {
+  background: var(--background-hover);
+}
+
+.file-status {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  margin-right: var(--spacing-sm);
+}
+
+.staged .file-status {
+  background: var(--success-color);
+  color: white;
+}
+
+.unstaged .file-status {
+  background: var(--warning-color);
+  color: white;
+}
+
+.untracked .file-status {
+  background: var(--info-color);
+  color: white;
+}
+
+.file-name {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.git-file button {
+  background: transparent;
+  border: none;
+  padding: 2px 6px;
+  border-radius: var(--radius-small);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: var(--spacing-xs);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.git-file:hover button {
+  opacity: 1;
+}
+
+.git-file button:hover {
+  background: var(--background-tertiary);
+  color: var(--text-primary);
+}
+
+/* Scrollbar styling for git content */
+.git-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.git-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.git-content::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.git-content::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Animation for git panel */
+.git-panel {
+  animation: slideInLeft 0.2s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Dark theme specific adjustments */
+[data-theme="dark"] .commit-input {
+  background: var(--background-tertiary);
+}
+
+[data-theme="dark"] .git-file:hover {
+  background: rgba(255, 255, 255, 0.05);
+}

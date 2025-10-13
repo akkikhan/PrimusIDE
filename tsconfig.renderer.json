@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "rootDir": "src",
+    "outDir": "dist/renderer",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["node"],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": false,
+    "paths": {
+      "@renderer/*": ["./src/renderer/*"],
+      "@shared/*": ["./src/shared/*"]
+    }
+  },
+  "include": ["src/renderer/**/*", "src/shared/**/*", "src/renderer/preload.d.ts", "src/types/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/main",
+    "src/renderer/ai/**",
+    "src/renderer/AIAssistantService.ts",
+    "src/renderer/AIChatPanel.tsx",
+    "src/renderer/components/AIChatPanel.tsx",
+    "src/renderer/components/AIChatPanelWrapper.tsx",
+    "src/renderer/services/AdvancedTestingService.ts",
+    "src/renderer/services/AdvancedTerminalService.ts",
+    "src/renderer/services/DevelopmentToolsIntegrationService.ts",
+    "src/renderer/services/AdvancedDiagnosticsService.ts",
+    "src/renderer/services/PerformanceOptimizationEngine.ts",
+    "src/renderer/services/BuildPipelineSystem.ts"
+  ]
+}

@@ -1,0 +1,268 @@
+/* PRIMUS IDE - Core Layout System */
+/* This file fixes all missing layout definitions */
+
+/* ==================== MAIN LAYOUT STRUCTURE ==================== */
+.ide-layout {
+  display: grid;
+  grid-template-columns: var(--size-activity-bar) 240px 1fr;
+  grid-template-rows: 1fr;
+  height: calc(100vh - var(--size-menu-bar, 30px) - var(--size-status-bar, 24px));
+  width: 100vw;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* Menu Bar Height Variable */
+:root {
+  --size-menu-bar: 30px;
+  --size-sidebar-width: 240px;
+  --size-sidebar-min: 180px;
+  --size-sidebar-max: 400px;
+}
+
+/* ==================== SIDEBAR ==================== */
+.sidebar {
+  grid-column: 2;
+  background: var(--color-bg-alt);
+  border-right: 1px solid var(--color-border);
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: var(--size-sidebar-min);
+  max-width: var(--size-sidebar-max);
+  width: var(--size-sidebar-width);
+  resize: horizontal;
+}
+
+.sidebar-resizer {
+  position: absolute;
+  right: -3px;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: ew-resize;
+  z-index: 10;
+}
+
+.sidebar-resizer:hover {
+  background: var(--color-accent);
+  opacity: 0.5;
+}
+
+/* ==================== EDITOR CONTAINER ==================== */
+.editor-container {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-bg);
+  position: relative;
+}
+
+/* ==================== TAB BAR ==================== */
+.tab-bar {
+  display: flex;
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--size-tab-height);
+  overflow-x: auto;
+  overflow-y: hidden;
+  align-items: center;
+  padding: 0;
+  gap: 1px;
+}
+
+.tab-bar::-webkit-scrollbar {
+  height: 3px;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: var(--size-tab-height);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  min-width: 100px;
+  max-width: 200px;
+  transition: background var(--transition-fast);
+}
+
+.tab:hover {
+  background: var(--color-surface-alt);
+}
+
+.tab.active {
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.tab-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-size-sm);
+  margin-right: 4px;
+}
+
+.tab-close {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.tab:hover .tab-close,
+.tab.active .tab-close {
+  display: block;
+}
+
+.tab-close:hover {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}
+/* ==================== WELCOME MESSAGE ==================== */
+.welcome-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-text-muted);
+  font-size: var(--text-size-lg);
+  text-align: center;
+  padding: 20px;
+}
+
+.welcome-message h2 {
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+/* ==================== MENU BAR ==================== */
+.menu-bar {
+  display: flex;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--size-menu-bar);
+  align-items: center;
+  padding: 0 8px;
+  user-select: none;
+}
+
+.menu-item {
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+  font-size: var(--text-size-sm);
+}
+
+.menu-item:hover {
+  background: var(--color-surface-alt);
+}
+/* ==================== Z-INDEX MANAGEMENT ==================== */
+:root {
+  --z-activity-bar: 100;
+  --z-sidebar: 90;
+  --z-editor: 1;
+  --z-terminal: 200;
+  --z-search-panel: 210;
+  --z-settings-panel: 220;
+  --z-command-palette: 300;
+  --z-quick-open: 310;
+  --z-ai-panel: 250;
+  --z-modal: 400;
+  --z-tooltip: 500;
+  --z-notification: 600;
+}
+
+/* ==================== PANEL OVERLAYS ==================== */
+.panel-overlay {
+  position: fixed;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--elevation-2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.terminal-panel {
+  position: fixed;
+  bottom: var(--size-status-bar);
+  left: 0;
+  right: 0;
+  height: 300px;
+  z-index: var(--z-terminal);
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.search-panel,
+.settings-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 800px;
+  height: 70%;
+  max-height: 600px;
+  z-index: var(--z-settings-panel);
+}
+
+/* ==================== BUTTONS FIX ==================== */
+button {
+  font-family: var(--font-ui);
+  font-size: var(--text-size);
+  padding: 6px 12px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+button:hover:not(:disabled) {
+  background: var(--color-surface-alt);
+  border-color: var(--color-border-strong);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+button.primary:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}

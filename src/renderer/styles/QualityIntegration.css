@@ -1,0 +1,705 @@
+/* Quality Integration Styles - VS Code themed integration interface */
+
+/* Root integration styles */
+.quality-integration {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--vscode-foreground);
+  background-color: var(--vscode-editor-background);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styling */
+.quality-integration .header {
+  background-color: var(--vscode-titleBar-activeBackground);
+  border-bottom: 1px solid var(--vscode-titleBar-border);
+  padding: 0.75rem 1rem;
+  flex-shrink: 0;
+}
+
+.quality-integration .header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quality-integration .header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.quality-integration .header-title h1 {
+  color: var(--vscode-titleBar-activeForeground);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.quality-integration .header-metrics {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quality-integration .header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Status indicators */
+.quality-integration .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.quality-integration .status-badge.improving {
+  background-color: var(--vscode-gitDecoration-addedResourceForeground);
+  color: var(--vscode-editor-background);
+}
+
+.quality-integration .status-badge.stable {
+  background-color: var(--vscode-charts-blue);
+  color: var(--vscode-editor-background);
+}
+
+.quality-integration .status-badge.declining {
+  background-color: var(--vscode-errorForeground);
+  color: var(--vscode-editor-background);
+}
+
+.quality-integration .status-badge.auto-analysis {
+  background-color: transparent;
+  color: var(--vscode-descriptionForeground);
+  border-color: var(--vscode-widget-border);
+}
+
+/* Main content area */
+.quality-integration .main-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab navigation */
+.quality-integration .tab-navigation {
+  background-color: var(--vscode-tab-inactiveBackground);
+  border-bottom: 1px solid var(--vscode-tab-border);
+  padding: 0 1rem;
+  flex-shrink: 0;
+}
+
+.quality-integration .tab-list {
+  display: flex;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quality-integration .tab-trigger {
+  position: relative;
+  background: transparent;
+  border: none;
+  color: var(--vscode-tab-inactiveForeground);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.quality-integration .tab-trigger:hover {
+  color: var(--vscode-tab-activeForeground);
+  background-color: var(--vscode-tab-hoverBackground);
+}
+
+.quality-integration .tab-trigger.active {
+  color: var(--vscode-tab-activeForeground);
+  background-color: var(--vscode-tab-activeBackground);
+  border-bottom-color: var(--vscode-focusBorder);
+}
+
+.quality-integration .tab-trigger .notification-badge {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background-color: var(--vscode-errorForeground);
+  color: var(--vscode-editor-background);
+  font-size: 0.625rem;
+  font-weight: 600;
+  padding: 0.125rem 0.25rem;
+  border-radius: 8px;
+  min-width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tab content */
+.quality-integration .tab-content {
+  flex: 1;
+  overflow: auto;
+  background-color: var(--vscode-editor-background);
+}
+
+/* Notifications panel */
+.quality-integration .notifications-panel {
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.quality-integration .notifications-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.quality-integration .notifications-header h2 {
+  color: var(--vscode-foreground);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.quality-integration .notifications-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quality-integration .notifications-list {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+/* Notification items */
+.quality-integration .notification-item {
+  background-color: var(--vscode-sideBar-background);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.quality-integration .notification-item:hover {
+  border-color: var(--vscode-focusBorder);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quality-integration .notification-item.error {
+  border-left: 4px solid var(--vscode-errorForeground);
+  background-color: var(--vscode-inputValidation-errorBackground);
+}
+
+.quality-integration .notification-item.warning {
+  border-left: 4px solid var(--vscode-editorWarning-foreground);
+  background-color: var(--vscode-inputValidation-warningBackground);
+}
+
+.quality-integration .notification-item.success {
+  border-left: 4px solid var(--vscode-gitDecoration-addedResourceForeground);
+  background-color: var(--vscode-inputValidation-infoBackground);
+}
+
+.quality-integration .notification-item.info {
+  border-left: 4px solid var(--vscode-charts-blue);
+  background-color: var(--vscode-inputValidation-infoBackground);
+}
+
+.quality-integration .notification-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.quality-integration .notification-icon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.125rem;
+}
+
+.quality-integration .notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.quality-integration .notification-title {
+  color: var(--vscode-foreground);
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.quality-integration .notification-message {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.quality-integration .notification-timestamp {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.625rem;
+  opacity: 0.8;
+}
+
+.quality-integration .notification-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.quality-integration .notification-dismiss {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--vscode-descriptionForeground);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 2px;
+  font-size: 1rem;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.quality-integration .notification-dismiss:hover {
+  background-color: var(--vscode-list-hoverBackground);
+  color: var(--vscode-foreground);
+}
+
+/* Settings panel */
+.quality-integration .settings-panel {
+  padding: 1rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.quality-integration .settings-container {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.quality-integration .settings-header {
+  margin-bottom: 1.5rem;
+}
+
+.quality-integration .settings-header h2 {
+  color: var(--vscode-foreground);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Settings cards */
+.quality-integration .settings-card {
+  background-color: var(--vscode-sideBar-background);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.quality-integration .settings-card-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--vscode-widget-border);
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+.quality-integration .settings-card-title {
+  color: var(--vscode-foreground);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quality-integration .settings-card-content {
+  padding: 1rem;
+}
+
+.quality-integration .settings-group {
+  margin-bottom: 1rem;
+}
+
+.quality-integration .settings-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Form controls */
+.quality-integration .form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.quality-integration .form-row:last-child {
+  margin-bottom: 0;
+}
+
+.quality-integration .form-label {
+  color: var(--vscode-foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.quality-integration .form-control {
+  background-color: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border);
+  color: var(--vscode-input-foreground);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  min-width: 8rem;
+}
+
+.quality-integration .form-control:focus {
+  outline: none;
+  border-color: var(--vscode-focusBorder);
+  box-shadow: 0 0 0 1px var(--vscode-focusBorder);
+}
+
+.quality-integration .form-control:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Switch controls */
+.quality-integration .switch-control {
+  position: relative;
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.25rem;
+}
+
+.quality-integration .switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.quality-integration .switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--vscode-widget-border);
+  transition: 0.2s;
+  border-radius: 1.25rem;
+}
+
+.quality-integration .switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 1rem;
+  width: 1rem;
+  left: 0.125rem;
+  bottom: 0.125rem;
+  background-color: var(--vscode-editor-background);
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+.quality-integration .switch-input:checked + .switch-slider {
+  background-color: var(--vscode-button-background);
+}
+
+.quality-integration .switch-input:checked + .switch-slider:before {
+  transform: translateX(1.25rem);
+}
+
+.quality-integration .switch-input:disabled + .switch-slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Slider controls */
+.quality-integration .slider-control {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.quality-integration .slider-track {
+  width: 100%;
+  height: 0.5rem;
+  background-color: var(--vscode-widget-border);
+  border-radius: 0.25rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.quality-integration .slider-fill {
+  height: 100%;
+  background-color: var(--vscode-button-background);
+  border-radius: 0.25rem;
+  transition: width 0.2s ease;
+}
+
+.quality-integration .slider-thumb {
+  position: absolute;
+  top: 50%;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--vscode-button-background);
+  border: 2px solid var(--vscode-editor-background);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease;
+}
+
+.quality-integration .slider-thumb:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.quality-integration .slider-value {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* Action buttons */
+.quality-integration .action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.quality-integration .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--vscode-button-border);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  background: none;
+}
+
+.quality-integration .btn-primary {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border-color: var(--vscode-button-background);
+}
+
+.quality-integration .btn-primary:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+
+.quality-integration .btn-secondary {
+  background-color: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border-color: var(--vscode-button-secondaryBackground);
+}
+
+.quality-integration .btn-secondary:hover {
+  background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+.quality-integration .btn-outline {
+  background-color: transparent;
+  color: var(--vscode-foreground);
+  border-color: var(--vscode-widget-border);
+}
+
+.quality-integration .btn-outline:hover {
+  background-color: var(--vscode-list-hoverBackground);
+  border-color: var(--vscode-focusBorder);
+}
+
+.quality-integration .btn-destructive {
+  background-color: var(--vscode-errorForeground);
+  color: var(--vscode-editor-background);
+  border-color: var(--vscode-errorForeground);
+}
+
+.quality-integration .btn-destructive:hover {
+  background-color: var(--vscode-errorForeground);
+  opacity: 0.9;
+}
+
+.quality-integration .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.quality-integration .btn .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Loading states */
+.quality-integration .loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: var(--vscode-descriptionForeground);
+}
+
+.quality-integration .loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--vscode-widget-border);
+  border-top: 2px solid var(--vscode-progressBar-foreground);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Empty states */
+.quality-integration .empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--vscode-descriptionForeground);
+}
+
+.quality-integration .empty-state .icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  opacity: 0.5;
+}
+
+.quality-integration .empty-state h3 {
+  color: var(--vscode-foreground);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.quality-integration .empty-state p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .quality-integration .header-content {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  
+  .quality-integration .tab-list {
+    flex-wrap: wrap;
+  }
+  
+  .quality-integration .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .quality-integration .form-control {
+    width: 100%;
+  }
+  
+  .quality-integration .action-buttons {
+    width: 100%;
+  }
+  
+  .quality-integration .btn {
+    flex: 1;
+  }
+}
+
+/* Accessibility enhancements */
+.quality-integration .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.quality-integration .focus-visible {
+  outline: 2px solid var(--vscode-focusBorder);
+  outline-offset: 2px;
+}
+
+/* Animation utilities */
+.quality-integration .fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quality-integration .slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Scrollbar styling */
+.quality-integration ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.quality-integration ::-webkit-scrollbar-track {
+  background: var(--vscode-scrollbarSlider-background);
+}
+
+.quality-integration ::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbarSlider-background);
+  border-radius: 4px;
+}
+
+.quality-integration ::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+.quality-integration ::-webkit-scrollbar-thumb:active {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}

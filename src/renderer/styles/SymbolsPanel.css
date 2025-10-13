@@ -1,0 +1,112 @@
+/* Symbols Panel Styles */
+.symbols-panel {
+  width: 260px;
+  background: var(--panel-bg, #1e1e1e);
+  color: var(--panel-fg, #d4d4d4);
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #333;
+}
+.symbols-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-bottom: 1px solid #333;
+  background: var(--panel-header-bg, #252526);
+}
+.symbols-title {
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.symbols-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.symbols-filter {
+  background: #2d2d2d;
+  border: 1px solid #3c3c3c;
+  color: #d4d4d4;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 3px;
+  width: 120px;
+}
+.symbols-filter:focus {
+  outline: 1px solid #0e639c;
+  background: #1e1e1e;
+}
+.symbols-close-btn {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 2px 4px;
+}
+.symbols-close-btn:hover {
+  color: #fff;
+  background: #3a3d41;
+}
+.symbols-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+.symbols-empty {
+  text-align: center;
+  padding: 24px 12px;
+  opacity: 0.7;
+}
+.symbols-empty-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.symbols-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.symbol-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-left: 2px solid transparent;
+  font-size: 12px;
+  line-height: 16px;
+}
+.symbol-item:hover {
+  background: #2a2d2e;
+}
+.symbol-item:active {
+  background: #333;
+}
+.symbol-kind-icon {
+  width: 16px;
+  text-align: center;
+  opacity: 0.85;
+  font-size: 12px;
+}
+.symbol-name {
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+/* Kind specific accents */
+.symbol-item.kind-class { border-left-color: #569cd6; }
+.symbol-item.kind-function { border-left-color: #dcdcaa; }
+.symbol-item.kind-interface { border-left-color: #b8d7a3; }
+.symbol-item.kind-variable { border-left-color: #9cdcfe; }
+.symbol-item.kind-enum { border-left-color: #c586c0; }
+/* Highlight styling for matched characters */
+.sym-hl { color: #ffd700; font-weight: 600; }

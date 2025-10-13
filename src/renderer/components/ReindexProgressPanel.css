@@ -1,0 +1,19 @@
+.reindex-panel { background: var(--panel-bg, #1e1f24); border: 1px solid #333; padding: 12px; font-size: 12px; line-height: 1.4; color: var(--fg, #e2e2e2); border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.4); max-width: 640px; }
+.reindex-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.reindex-header h3 { margin: 0; font-size: 14px; }
+.reindex-actions button { margin-left: 6px; }
+.reindex-progress { margin-top: 4px; }
+.progress-bar { background: #2e2f35; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+.progress-bar .fill { background: linear-gradient(90deg,#3d84ff,#6fa8ff); height: 100%; transition: width .25s ease; width: 0%; }
+/* Width binding using inline style avoided; update via requestAnimationFrame */
+.metrics-row { display: flex; flex-wrap: wrap; gap: 12px; font-size: 11px; opacity: .9; }
+.reindex-summary { margin-top: 12px; background: #26272d; padding: 8px; border-radius: 4px; max-height: 220px; overflow: auto; }
+.reindex-summary pre { margin: 0; font-size: 11px; }
+.reindex-error { color: #ff6868; margin-bottom: 8px; }
+.reindex-idle { opacity: .6; font-style: italic; }
+.btn-primary { background: #2563eb; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+.btn-secondary { background: #444; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+.btn-ghost { background: transparent; color: #aaa; border: 1px solid #444; padding: 4px 10px; border-radius: 4px; cursor: pointer; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-secondary:hover { background: #555; }
+.btn-ghost:hover { color: #ddd; }

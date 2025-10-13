@@ -1,0 +1,34 @@
+  const args = process.argv.slice(2);
+  
+  if (args.includes('--help') || args.includes('-h')) {
+    console.log(`
+Usage: node collaboration-server.js [options]
+
+Options:
+  --port <port>          Server port (default: 3001)
+  --host <string>        Server host (default: 0.0.0.0)
+  --log-level <level>    Log level: debug, info, warn, error (default: info)
+  --enable-ssl           Enable SSL/TLS
+  --ssl-cert <path>      Path to SSL certificate
+  --ssl-key <path>       Path to SSL private key
+  --metrics-port <port>  Metrics server port (default: 3002)
+  --help, -h             Show this help message
+
+Environment Variables:
+  COLLABORATION_PORT              Server port
+  COLLABORATION_HOST              Server host
+  COLLABORATION_MAX_CONNECTIONS   Maximum connections
+  COLLABORATION_LOG_LEVEL         Log level
+  COLLABORATION_ENABLE_SSL        Enable SSL (true/false)
+  COLLABORATION_SSL_CERT          SSL certificate path
+  COLLABORATION_SSL_KEY           SSL private key path
+
+Configuration File:
+  Create a collaboration.config.json file in the current directory with your settings.
+
+Examples:
+  node collaboration-server.js --port 3001 --log-level info
+  COLLABORATION_PORT=3001 node collaboration-server.js
+    `);
+    process.exit(0);
+  }

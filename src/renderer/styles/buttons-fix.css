@@ -1,0 +1,377 @@
+/* Universal Button Styles - Complete Fix */
+
+/* Base Button Reset */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+/* Primary Button Style */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius);
+  font-size: var(--text-size-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  min-height: 28px;
+  white-space: nowrap;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 122, 204, 0.2);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Secondary Button Style */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: var(--text-size-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  min-height: 28px;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-surface);
+  border-color: var(--color-border-strong);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+  background: var(--color-surface-alt);
+}
+
+/* Ghost Button Style */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-size-sm);
+  transition: all var(--transition-fast);
+  min-height: 24px;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text);
+}
+
+.btn-ghost:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Icon Button Style */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.btn-icon:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+}
+
+.btn-icon:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(0.95);
+}
+
+.btn-icon.active {
+  background: var(--color-accent-muted);
+  color: var(--color-accent);
+}
+
+/* Danger Button Style */
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-danger);
+  color: white;
+  border-radius: var(--radius);
+  font-size: var(--text-size-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  min-height: 28px;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #ff5555;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(241, 76, 76, 0.3);
+}
+
+/* Button Groups */
+.btn-group {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.btn-group.connected {
+  gap: 0;
+}
+
+.btn-group.connected > button:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+}
+
+.btn-group.connected > button:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Toggle Button */
+.btn-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: var(--text-size-sm);
+  transition: all var(--transition-fast);
+  min-height: 28px;
+}
+
+.btn-toggle:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.btn-toggle.active {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 11px;
+  min-height: 22px;
+}
+
+.btn-lg {
+  padding: 8px 20px;
+  font-size: 14px;
+  min-height: 36px;
+}
+
+/* Loading State */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  top: 50%;
+  left: 50%;
+  margin-left: -7px;
+  margin-top: -7px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: button-spinner 0.6s linear infinite;
+}
+
+@keyframes button-spinner {
+  to { transform: rotate(360deg); }
+}
+
+/* Focus Styles - Accessibility */
+button:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Menu Bar Buttons Fix */
+.menu-bar button {
+  padding: 4px 8px;
+  color: var(--color-text-muted);
+  font-size: var(--text-size-sm);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.menu-bar button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text);
+}
+
+/* Activity Bar Button Fix */
+.activity-button {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+  position: relative;
+  cursor: pointer;
+}
+
+.activity-button:hover {
+  color: var(--color-text);
+}
+
+.activity-button.active {
+  color: var(--color-text-strong);
+}
+
+.activity-button.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--color-accent);
+}
+
+/* File Explorer Action Buttons Fix */
+.explorer-actions button {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.explorer-actions button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text);
+}
+
+/* Command Palette Buttons Fix */
+.command-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.command-item:hover {
+  background: var(--color-surface);
+}
+
+.command-item.selected {
+  background: var(--color-accent-muted);
+  color: white;
+}
+
+/* Quick Settings Buttons Fix */
+.quick-settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.quick-settings-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Status Bar Buttons Fix */
+.status-bar button {
+  padding: 2px 8px;
+  color: white;
+  font-size: var(--text-size-xs);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.status-bar button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ripple Effect for Material Design Feel */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-ripple:active::before {
+  width: 300px;
+  height: 300px;
+}

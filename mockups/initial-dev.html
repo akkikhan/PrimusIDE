@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Initial Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1e1e1e;
+            color: #ffffff;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: #2d2d30;
+            padding: 10px 20px;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .project-title {
+            font-size: 1.1rem;
+            color: #00d4ff;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #3e3e42;
+            color: #cccccc;
+            border: 1px solid #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #4e4e52;
+        }
+        
+        .main-content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: #252526;
+            border-right: 1px solid #3e3e42;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            padding: 15px;
+            border-bottom: 1px solid #3e3e42;
+            font-weight: 600;
+            color: #cccccc;
+        }
+        
+        .file-tree {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            padding: 8px 15px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .file-item:hover {
+            background: #2d2d30;
+        }
+        
+        .file-item.active {
+            background: #37373d;
+            border-left-color: #00d4ff;
+        }
+        
+        .file-icon {
+            margin-right: 8px;
+            color: #cccccc;
+        }
+        
+        .file-name {
+            color: #cccccc;
+            font-size: 0.9rem;
+        }
+        
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .editor-tabs {
+            background: #2d2d30;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 10px 15px;
+            border-right: 1px solid #3e3e42;
+            cursor: pointer;
+            background: #2d2d30;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            background: #1e1e1e;
+            border-bottom: 2px solid #00d4ff;
+        }
+        
+        .tab:hover {
+            background: #37373d;
+        }
+        
+        .tab-close {
+            margin-left: 8px;
+            color: #cccccc;
+            font-size: 0.8rem;
+        }
+        
+        .editor {
+            flex: 1;
+            background: #1e1e1e;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .code-editor {
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 20px;
+            border: none;
+            outline: none;
+            resize: none;
+            overflow: auto;
+        }
+        
+        .ai-suggestion {
+            position: absolute;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 12px;
+            color: #00d4ff;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        .inline-completion {
+            background: rgba(255, 255, 0, 0.1);
+            color: #ffff00;
+            opacity: 0.7;
+        }
+        
+        .ai-panel {
+            width: 300px;
+            background: #252526;
+            border-left: 1px solid #3e3e42;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ai-header {
+            padding: 15px;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .ai-title {
+            font-weight: 600;
+            color: #00d4ff;
+        }
+        
+        .ai-status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff00;
+        }
+        
+        .ai-chat {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        
+        .message.ai {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid #00d4ff;
+            margin-right: auto;
+        }
+        
+        .message.user {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid #cccccc;
+            margin-left: auto;
+        }
+        
+        .message-text {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .ai-input {
+            padding: 15px;
+            border-top: 1px solid #3e3e42;
+        }
+        
+        .ai-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            background: #3e3e42;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+        
+        .ai-input input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+        
+        .annotations {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            z-index: 1000;
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 0, 0.2);
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 3: Initial Development - Basic coding with AI assistance -->
+    <div class="header">
+        <div class="project-title">E-commerce Platform</div>
+        <div class="header-actions">
+            <button class="btn btn-secondary">Save</button>
+            <a href="swarm-activation.html" class="btn btn-primary">Activate Swarm</a>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <!-- File Explorer Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">EXPLORER</div>
+            <div class="file-tree">
+                <div class="file-item active">
+                    <span class="file-icon">📁</span>
+                    <span class="file-name">src</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">App.tsx</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">ProductCard.tsx</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">Cart.tsx</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📁</span>
+                    <span class="file-name">components</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📁</span>
+                    <span class="file-name">styles</span>
+                </div>
+                <div class="file-item">
+                    <span class="file-icon">📄</span>
+                    <span class="file-name">package.json</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Editor Area -->
+        <div class="editor-container">
+            <div class="editor-tabs">
+                <div class="tab active">
+                    App.tsx
+                    <span class="tab-close">×</span>
+                </div>
+                <div class="tab">
+                    ProductCard.tsx
+                    <span class="tab-close">×</span>
+                </div>
+                <div class="tab">
+                    styles.css
+                    <span class="tab-close">×</span>
+                </div>
+            </div>
+            
+            <div class="editor">
+                <textarea class="code-editor" readonly>
+// E-commerce Platform - Main App Component
+import React, { useState } from 'react';
+import ProductCard from './components/ProductCard';
+import Cart from './components/Cart';
+import './styles/main.css';
+
+function App() {
+  const [cart, setCart] = useState([]);
+  const [products] = useState([
+    { id: 1, name: 'Wireless Headphones', price: 99.99, image: '/images/headphones.jpg' },
+    { id: 2, name: 'Smart Watch', price: 249.99, image: '/images/watch.jpg' },
+    { id: 3, name: 'Laptop Stand', price: 39.99, image: '/images/stand.jpg' }
+  ]);
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  return (
+    <div className="app">
+      <header className="header">
+        <h1>E-commerce Store</h1>
+        <Cart items={cart} />
+      </header>
+      
+      <main className="product-grid">
+        {products.map(product => (
+          <ProductCard 
+            key={product.id} 
+            product={product} 
+            onAddToCart={addToCart} 
+          />
+        ))}
+      </main>
+    </div>
+  );
+}
+
+export default App;</textarea>
+                
+                <!-- AI Inline Suggestion -->
+                <div class="ai-suggestion" style="top: 120px; left: 300px;">
+                    💡 Press Tab to accept: useEffect(() => { ... }, [])
+                </div>
+                
+                <!-- AI Inline Completion -->
+                <div class="inline-completion" style="position: absolute; top: 200px; left: 250px;">
+                    .filter(product => product.price < 100)
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Assistant Panel -->
+        <div class="ai-panel">
+            <div class="ai-header">
+                <div class="ai-title">AI Assistant</div>
+                <div class="ai-status" title="AI is active and ready"></div>
+            </div>
+            
+            <div class="ai-chat">
+                <div class="message ai">
+                    <div class="message-text">
+                        <strong>AI:</strong> I see you're building an e-commerce platform. I can help you add features like user authentication, payment processing, and inventory management. What would you like to work on next?
+                    </div>
+                </div>
+                
+                <div class="message user">
+                    <div class="message-text">
+                        <strong>You:</strong> Let's add a search functionality to filter products
+                    </div>
+                </div>
+                
+                <div class="message ai">
+                    <div class="message-text">
+                        <strong>AI:</strong> Great! I'll add a search bar and filter logic. Here's the updated code:
+                        
+                        <div class="highlight">// Add search state
+const [searchTerm, setSearchTerm] = useState('');
+
+// Filter products based on search
+const filteredProducts = products.filter(product =>
+  product.name.toLowerCase().includes(searchTerm.toLowerCase())
+);</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ai-input">
+                <input type="text" placeholder="Ask AI for help..." value="Add user authentication">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Detailed Annotations for Screen 3 -->
+    <div class="annotations">
+        <strong>Screen 3 Annotations:</strong><br>
+        • <strong>Code Editor:</strong> Syntax-highlighted React/TypeScript code with line numbers<br>
+        • <strong>AI Inline Suggestion:</strong> Contextual code completion with Tab acceptance<br>
+        • <strong>Inline Completion:</strong> Ghost text showing AI's suggested continuation<br>
+        • <strong>AI Chat Panel:</strong> Conversational interface for AI assistance<br>
+        • <strong>File Explorer:</strong> Project structure with active file highlighting<br>
+        • <strong>Editor Tabs:</strong> Multiple open files with close buttons<br>
+        • <strong>Activate Swarm Button:</strong> Primary CTA to next screen (swarm activation)<br>
+        • <strong>AI Status Indicator:</strong> Green dot showing AI is online and responsive<br>
+        • <strong>Highlighted Code:</strong> AI suggestions with syntax highlighting in chat
+    </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "generated": "2025-09-12T00:00:00Z",
+  "sources": [
+    "specs/primus-ide-core.spec.md",
+    "specs/hello-world.spec.md",
+    "inline TODOs",
+    "inferred implementation phases"
+  ],
+  "categories": {
+    "spec:primus-ide-core": {
+      "count": 16,
+      "items": [
+        "Electron bootstraps BrowserWindow",
+        "Dev vs prod renderer serve",
+        "Monaco integration",
+        "Tab manager CRUD & dirty state",
+        "File explorer CRUD",
+        "Plugin manager loads manifests",
+        "AI service stub",
+        "Git service wrapper branch+status",
+        "Terminal panel PTY fallback",
+        "Search panel filename+grep",
+        "Settings persistence",
+        "Theming system",
+        "Status bar subscribed states",
+        "Spec-Kit menu plan/tasks",
+        "Build scripts dev & prod",
+        "Basic tests for key utilities"
+      ]
+    },
+    "spec:hello-world": {
+      "count": 4,
+      "items": [
+        "helloWorld() function",
+        "Unit test for helloWorld",
+        "CLI script prints message",
+        "Plan & task artifacts generation"
+      ]
+    },
+    "feature:outline": {
+      "count": 8,
+      "items": [
+        "SymbolsPanel scaffold",
+        "Command/shortcut registration",
+        "Indexer data wiring",
+        "Reveal navigation",
+        "Fuzzy filter + highlight",
+        "Performance timing >=1000",
+        "Tests for symbols panel",
+        "Docs update"
+      ]
+    },
+    "feature:problems": {
+      "count": 9,
+      "items": [
+        "Diagnostics types + toggle",
+        "Status bar bubble",
+        "Marker collection debounce",
+        "Grouping + navigation",
+        "Severity filters",
+        "Performance instrumentation thresholds",
+        "Helper tests (grouping/counts)",
+        "Docs & acceptance",
+        "Polish (SeverityIcon refactor)"
+      ]
+    },
+    "inlineTodosSample": {
+      "count": 12,
+      "items": [
+        "Get selected text from monaco",
+        "Get cursor position",
+        "Navigate to specific line (open file)",
+        "Synchronized scrolling",
+        "Implement test generation placeholders",
+        "Add function description JSDoc",
+        "Implement response time tracking",
+        "Add proper error handling",
+        "Spawn spec plan script",
+        "Spawn spec tasks script",
+        "Lightweight code navigation",
+        "Improve broadcast handler structure"
+      ]
+    },
+    "inferredSubsystems": {
+      "count": 10,
+      "items": [
+        "AI chat interface scaffold",
+        "Smart code intelligence extraction",
+        "Collaboration server skeleton",
+        "Plugin manifest validation",
+        "Build pipeline separation",
+        "Git staging future work",
+        "Terminal multi-instance future",
+        "Settings UI enhancements",
+        "Search performance improvements",
+        "Accessibility & ARIA polish"
+      ]
+    }
+  },
+  "totalApproximate": 59,
+  "notes": "Approximation based on available artifacts; full 630-item historical list not present in repo snapshot. Future snapshots will append here."
+}

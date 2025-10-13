@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "maxPromptChars": 20000,
+  "blockedOperations": [
+    "exec-shell"
+  ],
+  "providerPolicies": {
+    "mock-local": {
+      "allowed": [
+        "chat",
+        "explain",
+        "planning",
+        "refactor",
+        "inline-complete",
+        "tests"
+      ],
+      "maxPromptChars": 12000
+    },
+    "mock-transform": {
+      "allowed": [
+        "refactor",
+        "inline-complete",
+        "tests",
+        "chat",
+        "explain"
+      ],
+      "maxPromptChars": 8000
+    },
+    "mock-analysis": {
+      "allowed": [
+        "planning",
+        "explain",
+        "chat",
+        "refactor"
+      ],
+      "maxPromptChars": 10000
+    }
+  },
+  "redaction": {
+    "secretPatterns": [
+      "API_KEY=",
+      "SECRET=",
+      "BEGIN RSA PRIVATE KEY"
+    ],
+    "maskWith": "***REDACTED***"
+  },
+  "rateLimits": {
+    "windowSeconds": 60,
+    "maxRequests": 120
+  },
+  "allowedModels": [
+    "mock-local",
+    "mock-transform",
+    "mock-analysis"
+  ],
+  "logRetentionDays": 14,
+  "notes": "More permissive defaults while keeping dangerous operations blocked."
+}

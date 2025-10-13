@@ -1,0 +1,374 @@
+/* Container Constraints & Overflow Management */
+
+/* Global Box Sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* HTML & Body Constraints */
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-size);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Root Container */
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Main App Container */
+.app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Menu Bar Constraints */
+.menu-bar {
+  flex: 0 0 30px;
+  min-height: 30px;
+  max-height: 30px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Main Content Area */
+.ide-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  height: calc(100vh - 30px - var(--size-status-bar));
+}
+
+/* Activity Bar Constraints */
+.activity-bar {
+  flex: 0 0 var(--size-activity-bar);
+  min-width: var(--size-activity-bar);
+  max-width: var(--size-activity-bar);
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Sidebar Constraints */
+.sidebar {
+  flex: 0 0 240px;
+  min-width: 180px;
+  max-width: 480px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  resize: horizontal;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0;
+}
+
+/* Editor Area Constraints */
+.editor-area {
+  flex: 1;
+  min-width: 300px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab Bar Constraints */
+.tab-bar {
+  flex: 0 0 var(--size-tab-height);
+  min-height: var(--size-tab-height);
+  max-height: var(--size-tab-height);
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.tab-bar::-webkit-scrollbar {
+  height: 3px;
+}
+
+.tab-bar::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+/* Editor Container Constraints */
+.editor-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-height: 200px;
+}
+
+.monaco-editor-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Panel Constraints */
+.panel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  flex: 0 0 32px;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.panel-content {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+}
+
+/* Terminal Panel Constraints */
+.terminal-panel {
+  height: 300px;
+  min-height: 100px;
+  max-height: 60vh;
+  resize: vertical;
+  overflow: hidden;
+}
+
+.terminal-content {
+  width: 100%;
+  height: calc(100% - 32px);
+  overflow: hidden;
+}
+
+/* Search Panel Constraints */
+.search-panel {
+  width: 350px;
+  min-width: 250px;
+  max-width: 50vw;
+  resize: horizontal;
+}
+
+/* Settings Panel Constraints */
+.settings-panel {
+  width: 400px;
+  min-width: 300px;
+  max-width: 60vw;
+  resize: horizontal;
+}
+
+/* Status Bar Constraints */
+.status-bar {
+  flex: 0 0 var(--size-status-bar);
+  min-height: var(--size-status-bar);
+  max-height: var(--size-status-bar);
+  width: 100%;
+  overflow: hidden;
+}
+
+/* File Explorer Constraints */
+.file-explorer {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-tree {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.file-tree::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Problems Panel Constraints */
+.problems-panel {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.problems-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Command Palette Constraints */
+.command-palette {
+  max-height: 400px;
+  overflow: hidden;
+}
+
+.command-list {
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Modal Constraints */
+.modal {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+}
+
+.modal-content {
+  max-height: calc(90vh - 60px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Theme Customizer Constraints */
+.theme-customizer-content {
+  width: 800px;
+  max-width: 90vw;
+  height: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.theme-customizer-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Split View Constraints */
+.split-view {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.split-pane {
+  flex: 1;
+  overflow: hidden;
+  min-width: 100px;
+}
+
+.split-divider {
+  flex: 0 0 4px;
+  background: var(--color-border);
+  cursor: col-resize;
+  position: relative;
+}
+
+.split-divider:hover {
+  background: var(--color-accent);
+}
+
+/* Scrollbar Constraints for All Scrollable Areas */
+.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.scrollable-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.scrollable-both {
+  overflow: auto;
+}
+
+/* Prevent Text Selection During Drag */
+.dragging {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Focus Visible for Accessibility */
+.focusable:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Responsive Container Queries */
+@container (max-width: 768px) {
+  .sidebar {
+    flex: 0 0 180px;
+  }
+  
+  .search-panel,
+  .settings-panel {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@container (max-width: 480px) {
+  .sidebar {
+    position: absolute;
+    transform: translateX(-100%);
+    z-index: var(--z-sidebar);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .menu-bar,
+  .activity-bar,
+  .sidebar,
+  .status-bar,
+  .panel {
+    display: none !important;
+  }
+  
+  .editor-container {
+    width: 100% !important;
+    height: auto !important;
+  }
+}

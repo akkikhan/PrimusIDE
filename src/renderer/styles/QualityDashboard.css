@@ -1,0 +1,580 @@
+/* Quality Dashboard Styles - VS Code themed quality analytics interface */
+
+/* Root quality dashboard styles */
+.quality-dashboard {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--vscode-foreground);
+  background-color: var(--vscode-editor-background);
+}
+
+/* Header and navigation */
+.quality-dashboard .header {
+  background-color: var(--vscode-titleBar-activeBackground);
+  border-bottom: 1px solid var(--vscode-titleBar-border);
+  padding: 0.75rem 1rem;
+}
+
+.quality-dashboard .header h1 {
+  color: var(--vscode-titleBar-activeForeground);
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+/* Summary cards */
+.quality-dashboard .summary-card {
+  background-color: var(--vscode-sideBar-background);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 6px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.quality-dashboard .summary-card:hover {
+  border-color: var(--vscode-focusBorder);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quality-dashboard .summary-card .metric-value {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quality-dashboard .summary-card .metric-label {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.quality-dashboard .summary-card .metric-icon {
+  width: 2rem;
+  height: 2rem;
+  opacity: 0.8;
+}
+
+/* Quality score grades */
+.quality-dashboard .grade-a { color: var(--vscode-gitDecoration-addedResourceForeground); }
+.quality-dashboard .grade-b { color: var(--vscode-charts-blue); }
+.quality-dashboard .grade-c { color: var(--vscode-charts-orange); }
+.quality-dashboard .grade-d { color: var(--vscode-charts-red); }
+.quality-dashboard .grade-f { color: var(--vscode-errorForeground); }
+
+/* Trend indicators */
+.quality-dashboard .trend-improving { color: var(--vscode-gitDecoration-addedResourceForeground); }
+.quality-dashboard .trend-stable { color: var(--vscode-charts-foreground); }
+.quality-dashboard .trend-declining { color: var(--vscode-errorForeground); }
+
+/* Chart containers */
+.quality-dashboard .chart-container {
+  background-color: var(--vscode-sideBar-background);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.quality-dashboard .chart-title {
+  color: var(--vscode-foreground);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quality-dashboard .chart-title .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--vscode-charts-blue);
+}
+
+/* Custom recharts styling */
+.quality-dashboard .recharts-wrapper {
+  background: transparent !important;
+}
+
+.quality-dashboard .recharts-cartesian-grid line {
+  stroke: var(--vscode-widget-border) !important;
+  stroke-opacity: 0.5;
+}
+
+.quality-dashboard .recharts-text {
+  fill: var(--vscode-foreground) !important;
+  font-size: 0.75rem !important;
+}
+
+.quality-dashboard .recharts-legend-wrapper {
+  color: var(--vscode-foreground) !important;
+}
+
+.quality-dashboard .recharts-tooltip-wrapper {
+  background-color: var(--vscode-editorHoverWidget-background) !important;
+  border: 1px solid var(--vscode-editorHoverWidget-border) !important;
+  border-radius: 4px !important;
+  box-shadow: var(--vscode-widget-shadow) !important;
+}
+
+.quality-dashboard .recharts-tooltip-label {
+  color: var(--vscode-editorHoverWidget-foreground) !important;
+}
+
+.quality-dashboard .recharts-tooltip-item {
+  color: var(--vscode-editorHoverWidget-foreground) !important;
+}
+
+/* Issue and recommendation cards */
+.quality-dashboard .issue-card {
+  background-color: var(--vscode-list-hoverBackground);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.quality-dashboard .issue-card:hover {
+  background-color: var(--vscode-list-activeSelectionBackground);
+  border-color: var(--vscode-focusBorder);
+}
+
+.quality-dashboard .issue-card.critical {
+  border-left: 4px solid var(--vscode-errorForeground);
+  background-color: var(--vscode-inputValidation-errorBackground);
+}
+
+.quality-dashboard .issue-card.warning {
+  border-left: 4px solid var(--vscode-editorWarning-foreground);
+  background-color: var(--vscode-inputValidation-warningBackground);
+}
+
+.quality-dashboard .issue-card.info {
+  border-left: 4px solid var(--vscode-editorInfo-foreground);
+  background-color: var(--vscode-inputValidation-infoBackground);
+}
+
+.quality-dashboard .issue-card .issue-title {
+  color: var(--vscode-foreground);
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.quality-dashboard .issue-card .issue-description {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.quality-dashboard .issue-card .issue-location {
+  color: var(--vscode-textLink-foreground);
+  font-size: 0.75rem;
+  font-family: var(--vscode-editor-font-family);
+}
+
+.quality-dashboard .issue-card .issue-suggestion {
+  color: var(--vscode-charts-blue);
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--vscode-textCodeBlock-background);
+  border-radius: 4px;
+  border-left: 3px solid var(--vscode-charts-blue);
+}
+
+/* Badges and severity indicators */
+.quality-dashboard .severity-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.quality-dashboard .severity-badge.critical {
+  background-color: var(--vscode-errorForeground);
+  color: var(--vscode-errorBackground);
+}
+
+.quality-dashboard .severity-badge.major {
+  background-color: var(--vscode-editorWarning-foreground);
+  color: var(--vscode-editorWarning-background);
+}
+
+.quality-dashboard .severity-badge.minor {
+  background-color: var(--vscode-charts-orange);
+  color: var(--vscode-editor-background);
+}
+
+.quality-dashboard .severity-badge.info {
+  background-color: var(--vscode-charts-blue);
+  color: var(--vscode-editor-background);
+}
+
+/* Progress indicators */
+.quality-dashboard .progress-container {
+  background-color: var(--vscode-progressBar-background);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.quality-dashboard .progress-bar {
+  background-color: var(--vscode-progressBar-foreground);
+  height: 100%;
+  transition: width 0.3s ease;
+  border-radius: 8px;
+}
+
+.quality-dashboard .progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* Tabs styling */
+.quality-dashboard .tabs-container {
+  background-color: var(--vscode-tab-inactiveBackground);
+  border-bottom: 1px solid var(--vscode-tab-border);
+}
+
+.quality-dashboard .tab-trigger {
+  color: var(--vscode-tab-inactiveForeground);
+  background-color: transparent;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.quality-dashboard .tab-trigger:hover {
+  color: var(--vscode-tab-activeForeground);
+  background-color: var(--vscode-tab-hoverBackground);
+}
+
+.quality-dashboard .tab-trigger.active {
+  color: var(--vscode-tab-activeForeground);
+  background-color: var(--vscode-tab-activeBackground);
+  border-bottom-color: var(--vscode-focusBorder);
+}
+
+.quality-dashboard .tab-content {
+  padding: 1rem;
+  background-color: var(--vscode-editor-background);
+}
+
+/* Filter and control sections */
+.quality-dashboard .filter-section {
+  background-color: var(--vscode-sideBar-background);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.quality-dashboard .filter-section .filter-title {
+  color: var(--vscode-foreground);
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+}
+
+.quality-dashboard .filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.quality-dashboard .filter-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Buttons and controls */
+.quality-dashboard .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--vscode-button-border);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.quality-dashboard .btn-primary {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border-color: var(--vscode-button-background);
+}
+
+.quality-dashboard .btn-primary:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+
+.quality-dashboard .btn-secondary {
+  background-color: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border-color: var(--vscode-button-secondaryBackground);
+}
+
+.quality-dashboard .btn-secondary:hover {
+  background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+.quality-dashboard .btn-outline {
+  background-color: transparent;
+  color: var(--vscode-foreground);
+  border-color: var(--vscode-widget-border);
+}
+
+.quality-dashboard .btn-outline:hover {
+  background-color: var(--vscode-list-hoverBackground);
+  border-color: var(--vscode-focusBorder);
+}
+
+.quality-dashboard .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.quality-dashboard .btn .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Select and input controls */
+.quality-dashboard .select-trigger {
+  background-color: var(--vscode-dropdown-background);
+  border: 1px solid var(--vscode-dropdown-border);
+  color: var(--vscode-dropdown-foreground);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  min-width: 8rem;
+}
+
+.quality-dashboard .select-trigger:hover {
+  border-color: var(--vscode-focusBorder);
+}
+
+.quality-dashboard .select-content {
+  background-color: var(--vscode-dropdown-background);
+  border: 1px solid var(--vscode-dropdown-border);
+  border-radius: 4px;
+  box-shadow: var(--vscode-widget-shadow);
+  z-index: 50;
+}
+
+.quality-dashboard .select-item {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--vscode-dropdown-foreground);
+}
+
+.quality-dashboard .select-item:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+
+/* Empty states */
+.quality-dashboard .empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--vscode-descriptionForeground);
+}
+
+.quality-dashboard .empty-state .icon {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1rem;
+  opacity: 0.5;
+}
+
+.quality-dashboard .empty-state h3 {
+  color: var(--vscode-foreground);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.quality-dashboard .empty-state p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* Loading states */
+.quality-dashboard .loading-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--vscode-widget-border);
+  border-top: 2px solid var(--vscode-progressBar-foreground);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .quality-dashboard .summary-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .quality-dashboard .chart-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quality-dashboard .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .quality-dashboard .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .quality-dashboard .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Accessibility enhancements */
+.quality-dashboard .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.quality-dashboard .focus-visible {
+  outline: 2px solid var(--vscode-focusBorder);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .quality-dashboard .issue-card {
+    border-width: 2px;
+  }
+  
+  .quality-dashboard .severity-badge {
+    border: 1px solid currentColor;
+  }
+  
+  .quality-dashboard .btn {
+    border-width: 2px;
+  }
+}
+
+/* Dark theme specific adjustments */
+.quality-dashboard.dark .summary-card {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Light theme specific adjustments */
+.quality-dashboard.light .summary-card {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Animation utilities */
+.quality-dashboard .fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quality-dashboard .slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Code syntax highlighting for suggestions */
+.quality-dashboard .code-suggestion {
+  background-color: var(--vscode-textCodeBlock-background);
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  margin: 0.5rem 0;
+}
+
+.quality-dashboard .code-suggestion .code-before {
+  color: var(--vscode-editorError-foreground);
+  background-color: var(--vscode-diffEditor-removedTextBackground);
+  padding: 0.25rem;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.quality-dashboard .code-suggestion .code-after {
+  color: var(--vscode-gitDecoration-addedResourceForeground);
+  background-color: var(--vscode-diffEditor-insertedTextBackground);
+  padding: 0.25rem;
+  border-radius: 2px;
+  display: block;
+}
+
+/* Scrollbar styling */
+.quality-dashboard ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.quality-dashboard ::-webkit-scrollbar-track {
+  background: var(--vscode-scrollbarSlider-background);
+}
+
+.quality-dashboard ::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbarSlider-background);
+  border-radius: 5px;
+}
+
+.quality-dashboard ::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+.quality-dashboard ::-webkit-scrollbar-thumb:active {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}

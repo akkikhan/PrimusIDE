@@ -1,0 +1,175 @@
+.enhanced-diff-viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-family: var(--monaco-font-family, "Input", "JetBrains Mono", "Consolas", "Monaco", monospace);
+  font-size: var(--monaco-font-size, 14px);
+  background-color: var(--diff-background, #1e1f24);
+  color: var(--diff-text, #e6e6e6);
+}
+
+.diff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid var(--diff-border, #444);
+  background-color: var(--diff-header-background, #2a2c33);
+}
+
+.diff-title h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.diff-stats {
+  margin-left: 12px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.diff-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.diff-controls button {
+  padding: 6px 12px;
+  background-color: var(--diff-button-background, #3c3f46);
+  color: var(--diff-button-text, #e6e6e6);
+  border: 1px solid var(--diff-button-border, #555);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.diff-controls button:hover {
+  background-color: var(--diff-button-hover, #4c4f56);
+}
+
+.diff-controls button.active {
+  background-color: var(--diff-button-active, #0366d6);
+  color: white;
+}
+
+.hunk-navigation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 16px;
+}
+
+.hunk-navigation span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.diff-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-apply {
+  background-color: var(--diff-apply-background, #28a745);
+  color: white;
+  border: 1px solid var(--diff-apply-border, #28a745);
+}
+
+.btn-apply:hover {
+  background-color: var(--diff-apply-hover, #218838);
+}
+
+.btn-reject {
+  background-color: var(--diff-reject-background, #dc3545);
+  color: white;
+  border: 1px solid var(--diff-reject-border, #dc3545);
+}
+
+.btn-reject:hover {
+  background-color: var(--diff-reject-hover, #c82333);
+}
+
+.diff-content {
+  flex: 1;
+  overflow: auto;
+  padding: 8px;
+}
+
+.diff-unified-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.diff-line {
+  display: flex;
+  padding: 2px 0;
+  line-height: 1.5;
+}
+
+.diff-line .line-number {
+  width: 40px;
+  padding: 0 8px;
+  text-align: right;
+  color: var(--diff-line-number, #777);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.diff-line .line-content {
+  flex: 1;
+  white-space: pre;
+  padding: 0 8px;
+}
+
+.diff-line.added {
+  background-color: var(--diff-added-background, rgba(40, 167, 69, 0.15));
+}
+
+.diff-line.added .line-number {
+  background-color: var(--diff-added-line-number, rgba(40, 167, 69, 0.3));
+}
+
+.diff-line.removed {
+  background-color: var(--diff-removed-background, rgba(220, 53, 69, 0.15));
+}
+
+.diff-line.removed .line-number {
+  background-color: var(--diff-removed-line-number, rgba(220, 53, 69, 0.3));
+}
+
+.diff-line.unchanged {
+  background-color: var(--diff-unchanged-background, transparent);
+}
+
+.diff-line.unchanged .line-number {
+  background-color: var(--diff-unchanged-line-number, #2a2c33);
+}
+
+.diff-split-view {
+  display: flex;
+  height: 100%;
+}
+
+.diff-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.diff-side-header {
+  padding: 8px 12px;
+  background-color: var(--diff-header-background, #2a2c33);
+  border-bottom: 1px solid var(--diff-border, #444);
+  font-weight: 600;
+  text-align: center;
+}
+
+.diff-side.original {
+  border-right: 1px solid var(--diff-border, #444);
+}
+
+.diff-side.modified {
+  border-left: 1px solid var(--diff-border, #444);
+}

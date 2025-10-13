@@ -1,0 +1,10 @@
+node_modules
+dist/
+release/
+coverage/
+artifacts/
+*.log
+.env
+.DS_Store
+plans/*.plan.json
+tasks/*.task.json

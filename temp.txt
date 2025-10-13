@@ -1,0 +1,32 @@
+                let alertType = 'quiet';  
+                if (SCAN_PYTHON_SOURCE && (provider.id === 'gpt-4' || provider.id === 'code-davinci-002')) { alertType = 'alert'; }  
+                if (alertType === 'alert') {  
+                    console.error('\nAI [SECRETS ALERT] API stream contains secrets - blocking stream!');  
+                    controller.abort();  
+                    return;  
+                }  
+                webContents.send(IPC_CHANNELS.AI_STREAM_CHUNK, { streamId, content: textData, secrets: secretScan.newResults });  
+            } else {  
+                webContents.send(IPC_CHANNELS.AI_STREAM_CHUNK, { streamId, content: textData });  
+            }  
+        } catch (e) {  
+            console.error('[AI][stream] error', e);  
+            webContents.send(IPC_CHANNELS.AI_STREAM_ERROR, { streamId, error: String(e?.message || e) });  
+            activeStreams.delete(streamId);  
+        }  
+    });  
+});  
+  
+// App ready handler  
+app.whenReady().then(() => {  
+    loadAIPolicy();  
+    createWindow();  
+});  
+  
+app.on('window-all-closed', () => {  
+    if (process.platform !== 'darwin') app.quit();  
+});  
+  
+app.on('activate', () => {  
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();  
+}); 

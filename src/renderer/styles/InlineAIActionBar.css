@@ -1,0 +1,34 @@
+.inline-ai-action-bar {
+  position: absolute;
+  z-index: 50;
+  display: flex;
+  gap: 4px;
+  padding: 4px 6px;
+  background: var(--panel-background, #1e1e1eee);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border-color, #3a3a3a);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  font-size: 12px;
+}
+
+.monaco-editor-with-inline-bar {
+  position: relative;
+}
+.inline-ai-action-bar .ai-action-btn {
+  background: var(--button-background, #2d2d30);
+  color: var(--text-color, #dcdcdc);
+  border: 1px solid var(--border-color, #3a3a3a);
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.2;
+}
+.inline-ai-action-bar .ai-action-btn:hover {
+  background: var(--button-hover-background, #3a3a3d);
+}
+.inline-ai-action-bar .ai-action-btn:active {
+  background: var(--button-active-background, #454548);
+}

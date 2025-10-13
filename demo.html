@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Primus IDE - Professional Development Environment Demo">
+    <meta name="keywords" content="IDE, code editor, development, programming">
+    <meta name="author" content="Primus IDE Team">
+    <title>Primus IDE Demo - Professional Development Environment</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="demo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Primus IDE",
+        "description": "Professional Integrated Development Environment",
+        "operatingSystem": "Windows, macOS, Linux",
+        "applicationCategory": "DeveloperApplication",
+        "author": {
+            "@type": "Organization",
+            "name": "Primus IDE Team"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+</head>
+<body class="animate-fade-in">
+    <!-- Navigation Header -->
+    <header class="header" role="banner">
+        <nav class="navbar container" role="navigation" aria-label="Main navigation">
+            <div class="navbar__brand">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                    <path d="M16 2L4 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-12-5z"/>
+                    <path d="M16 8l-6 3v6c0 3.33 2.31 6.44 5.4 7.2.69-.17 1.34-.42 1.94-.73L16 8z" opacity="0.7"/>
+                </svg>
+                <h1 class="navbar__title">Primus IDE</h1>
+            </div>
+            
+            <div class="navbar__menu">
+                <a href="#features" class="navbar__link">Features</a>
+                <a href="#demo" class="navbar__link">Demo</a>
+                <a href="#download" class="navbar__link">Download</a>
+                <button class="btn btn--primary" onclick="openIDE()">Launch IDE</button>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+                <span class="navbar__toggle-line"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero__content">
+                    <h2 class="hero__title">
+                        Professional Development Environment
+                        <span class="hero__accent">Built for Developers</span>
+                    </h2>
+                    
+                    <p class="hero__description">
+                        Experience the power of a modern IDE with advanced code editing,
+                        intelligent syntax highlighting, integrated terminal, and extensible
+                        plugin architecture. Built with Electron, React, and TypeScript.
+                    </p>
+                    
+                    <div class="hero__actions">
+                        <button class="btn btn--primary btn--large" onclick="openIDE()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            Launch IDE
+                        </button>
+                        
+                        <a href="#features" class="btn btn--secondary btn--large">
+                            Learn More
+                        </a>
+                    </div>
+                    
+                    <div class="hero__stats">
+                        <div class="stat">
+                            <strong class="stat__number">50+</strong>
+                            <span class="stat__label">Languages Supported</span>
+                        </div>
+                        <div class="stat">
+                            <strong class="stat__number">1000+</strong>
+                            <span class="stat__label">Extensions Available</span>
+                        </div>
+                        <div class="stat">
+                            <strong class="stat__number">∞</strong>
+                            <span class="stat__label">Possibilities</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero__visual">
+                    <div class="mockup-window">
+                        <div class="mockup-window__header">
+                            <div class="mockup-window__controls">
+                                <span class="control control--close"></span>
+                                <span class="control control--minimize"></span>
+                                <span class="control control--maximize"></span>
+                            </div>
+                            <div class="mockup-window__title">demo.ts - Primus IDE</div>
+                        </div>
+                        <div class="mockup-window__content">
+                            <pre><code class="language-typescript">// Welcome to Primus IDE!
+interface Developer {
+  name: string;
+  skills: string[];
+  productivity: number;
+}
+
+class IDE {
+  constructor(private config: Config) {}
+  
+  enhanceProductivity(): void {
+    // ✨ Magic happens here
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <header class="section__header">
+                    <h2 class="section__title">Powerful Features</h2>
+                    <p class="section__description">
+                        Everything you need for professional development in one place
+                    </p>
+                </header>
+                
+                <div class="grid features__grid">
+                    <article class="feature-card">
+                        <div class="feature-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0L19.2 12l-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card__title">Smart Code Editor</h3>
+                        <p class="feature-card__description">
+                            Monaco Editor with IntelliSense, syntax highlighting, and code completion
+                            for 50+ programming languages.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card__title">Integrated Terminal</h3>
+                        <p class="feature-card__description">
+                            Full-featured terminal with support for multiple shells, command history,
+                            and custom themes.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card__title">Advanced Search</h3>
+                        <p class="feature-card__description">
+                            Powerful search and replace with regex support, file filtering,
+                            and project-wide operations.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card__title">Plugin System</h3>
+                        <p class="feature-card__description">
+                            Extensible architecture with plugin support for themes, languages,
+                            and custom functionality.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card__title">Customizable Settings</h3>
+                        <p class="feature-card__description">
+                            Comprehensive settings panel with theme customization, keybindings,
+                            and workspace configuration.
+                        </p>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <div class="feature-card__icon" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2.5-9H19v2h-1.5v17.5c0 .83-.67 1.5-1.5 1.5H8c-.83 0-1.5-.67-1.5-1.5V4H5V2h3.5l1-1h5l1 1H19v2zm-3 0H8.5v17h9V2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card__title">Project Management</h3>
+                        <p class="feature-card__description">
+                            Organized file explorer, workspace management, and project templates
+                            for efficient development.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta" id="download">
+            <div class="container">
+                <div class="cta__content">
+                    <h2 class="cta__title">Ready to Start Coding?</h2>
+                    <p class="cta__description">
+                        Join thousands of developers who have enhanced their productivity with Primus IDE.
+                        Download now and experience the future of development.
+                    </p>
+                    
+                    <div class="cta__actions">
+                        <button class="btn btn--primary btn--large" onclick="openIDE()">
+                            Launch IDE Now
+                        </button>
+                        
+                        <div class="download-options">
+                            <span class="download-options__label">Available for:</span>
+                            <div class="download-options__platforms">
+                                <span class="platform-badge">Windows</span>
+                                <span class="platform-badge">macOS</span>
+                                <span class="platform-badge">Linux</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3 class="footer__title">Primus IDE</h3>
+                    <p class="footer__description">
+                        Professional development environment built with modern web technologies.
+                    </p>
+                </div>
+                
+                <div class="footer__links">
+                    <div class="footer__section">
+                        <h4 class="footer__section-title">Product</h4>
+                        <ul class="footer__list">
+                            <li><a href="#features" class="footer__link">Features</a></li>
+                            <li><a href="#download" class="footer__link">Download</a></li>
+                            <li><a href="#" class="footer__link">Documentation</a></li>
+                            <li><a href="#" class="footer__link">Tutorials</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__section">
+                        <h4 class="footer__section-title">Community</h4>
+                        <ul class="footer__list">
+                            <li><a href="#" class="footer__link">GitHub</a></li>
+                            <li><a href="#" class="footer__link">Discord</a></li>
+                            <li><a href="#" class="footer__link">Forum</a></li>
+                            <li><a href="#" class="footer__link">Blog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer__section">
+                        <h4 class="footer__section-title">Support</h4>
+                        <ul class="footer__list">
+                            <li><a href="#" class="footer__link">Help Center</a></li>
+                            <li><a href="#" class="footer__link">Contact</a></li>
+                            <li><a href="#" class="footer__link">Bug Reports</a></li>
+                            <li><a href="#" class="footer__link">Feature Requests</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    © 2024 Primus IDE. Built with ❤️ by developers, for developers.
+                </p>
+                
+                <div class="footer__legal">
+                    <a href="#" class="footer__link">Privacy Policy</a>
+                    <a href="#" class="footer__link">Terms of Service</a>
+                    <a href="#" class="footer__link">License</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // IDE Launch Function
+        function openIDE() {
+            // This would typically launch the Electron app
+            alert('Launching Primus IDE...\n\nIn a real implementation, this would open the desktop application.');
+        }
+
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.querySelector('.navbar__toggle');
+            const menu = document.querySelector('.navbar__menu');
+            
+            if (toggle && menu) {
+                toggle.addEventListener('click', function() {
+                    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                    toggle.setAttribute('aria-expanded', !isExpanded);
+                    menu.classList.toggle('navbar__menu--open');
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Intersection Observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+        
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            if ('performance' in window) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                console.log('Page load time:', Math.round(perfData.loadEventEnd - perfData.loadEventStart), 'ms');
+            }
+        });
+    </script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

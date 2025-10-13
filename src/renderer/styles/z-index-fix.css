@@ -1,0 +1,382 @@
+/* Z-Index Management System - Fix Overlapping Panels */
+
+:root {
+  /* Z-Index Scale - Systematic layering */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sidebar: 200;
+  --z-panel: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-notification: 600;
+  --z-tooltip: 700;
+  --z-context-menu: 800;
+  --z-command-palette: 900;
+  --z-critical: 9999;
+}
+
+/* Base Layout Components */
+.app {
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.menu-bar {
+  position: relative;
+  z-index: calc(var(--z-panel) + 50);
+}
+
+.activity-bar {
+  position: relative;
+  z-index: var(--z-sidebar);
+}
+
+.sidebar {
+  position: relative;
+  z-index: calc(var(--z-sidebar) - 10);
+}
+
+.editor-container {
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.status-bar {
+  position: fixed;
+  z-index: calc(var(--z-panel) + 50);
+}
+
+/* Panels - Proper Stacking */
+.terminal-panel {
+  position: fixed;
+  bottom: var(--size-status-bar);
+  left: 0;
+  right: 0;
+  z-index: var(--z-panel);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(100%);
+  transition: transform var(--transition);
+}
+
+.terminal-panel.visible {
+  transform: translateY(0);
+}
+
+.search-panel {
+  position: fixed;
+  top: 30px; /* Below menu bar */
+  right: 0;
+  bottom: var(--size-status-bar);
+  width: 350px;
+  z-index: calc(var(--z-panel) + 10);
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(100%);
+  transition: transform var(--transition);
+}
+
+.search-panel.visible {
+  transform: translateX(0);
+}
+
+.settings-panel {
+  position: fixed;
+  top: 30px;
+  right: 0;
+  bottom: var(--size-status-bar);
+  width: 400px;
+  z-index: calc(var(--z-panel) + 20);
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(100%);
+  transition: transform var(--transition);
+}
+
+.settings-panel.visible {
+  transform: translateX(0);
+}
+
+/* AI Panels */
+.ai-chat-panel {
+  position: fixed;
+  top: 30px;
+  right: 0;
+  bottom: var(--size-status-bar);
+  width: 400px;
+  z-index: calc(var(--z-panel) + 15);
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  transform: translateX(100%);
+  transition: transform var(--transition);
+}
+
+.ai-chat-panel.visible {
+  transform: translateX(0);
+}
+
+.ai-assistant-panel {
+  position: fixed;
+  top: 30px;
+  right: 0;
+  bottom: var(--size-status-bar);
+  width: 450px;
+  z-index: calc(var(--z-panel) + 15);
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  transform: translateX(100%);
+  transition: transform var(--transition);
+}
+
+.ai-assistant-panel.visible {
+  transform: translateX(0);
+}
+
+/* Quick AI Prompt Bar */
+.quick-ai-prompt-bar {
+  position: fixed;
+  bottom: var(--size-status-bar);
+  left: var(--size-activity-bar);
+  right: 0;
+  height: 40px;
+  z-index: calc(var(--z-panel) - 10);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  transform: translateY(100%);
+  transition: transform var(--transition);
+}
+
+.quick-ai-prompt-bar.visible {
+  transform: translateY(0);
+}
+
+/* Modal Components */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-modal-backdrop);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.modal-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  z-index: var(--z-modal);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-2);
+  opacity: 0;
+  transition: all var(--transition);
+  pointer-events: none;
+}
+
+.modal.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Command Palette - Highest Priority */
+.command-palette-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-command-palette);
+  pointer-events: none;
+}
+
+.command-palette-container.visible {
+  pointer-events: auto;
+}
+
+.command-palette {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  width: 600px;
+  max-width: 90vw;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: all var(--transition);
+}
+
+.command-palette-container.visible .command-palette {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Theme Customizer */
+.theme-customizer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--z-modal) + 10);
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-customizer-modal.visible {
+  display: flex;
+}
+
+.theme-customizer-content {
+  width: 800px;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* Context Menus */
+.context-menu {
+  position: fixed;
+  z-index: var(--z-context-menu);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--elevation-2);
+  min-width: 150px;
+  padding: 4px 0;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 100ms ease;
+  pointer-events: none;
+}
+
+.context-menu.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Tooltips */
+.tooltip {
+  position: absolute;
+  z-index: var(--z-tooltip);
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-size-xs);
+  box-shadow: var(--elevation-1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Notifications */
+.notification-container {
+  position: fixed;
+  top: 40px;
+  right: 20px;
+  z-index: var(--z-notification);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.notification {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  box-shadow: var(--elevation-2);
+  min-width: 300px;
+  max-width: 400px;
+  pointer-events: auto;
+  transform: translateX(400px);
+  transition: transform var(--transition);
+}
+
+.notification.visible {
+  transform: translateX(0);
+}
+
+/* Debug Helper - Visualize Z-Index Issues */
+.debug-z-index * {
+  position: relative;
+}
+
+.debug-z-index *::after {
+  content: attr(data-z);
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px;
+  pointer-events: none;
+}
+
+/* Panel Resize Handles */
+.resize-handle {
+  position: absolute;
+  background: transparent;
+  transition: background var(--transition-fast);
+  z-index: calc(var(--z-panel) + 100);
+}
+
+.resize-handle:hover {
+  background: var(--color-accent);
+}
+
+.resize-handle.horizontal {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  cursor: ns-resize;
+}
+
+.resize-handle.vertical {
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  cursor: ew-resize;
+}
+
+/* Focus Management */
+.focus-trap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: calc(var(--z-modal) - 1);
+  pointer-events: none;
+}
+
+.focus-trap.active {
+  pointer-events: auto;
+}

@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2025-09-12T20:36:56.256Z",
+  "snapshotCreated": false,
+  "postProcess": {
+    "adjusted": 3,
+    "annotated": 8
+  },
+  "guard": {
+    "generatedAt": "2025-09-12T20:36:56.034Z",
+    "currentCount": 750,
+    "previousCount": 750,
+    "removed": [],
+    "changed": [],
+    "duplicates": [],
+    "allowDelete": false,
+    "strict": true,
+    "status": "PASS"
+  },
+  "tasksCount": 750
+}

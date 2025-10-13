@@ -1,0 +1,154 @@
+/**
+ * AI Intent Demo Styling
+ */
+
+.ai-demo-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 24px;
+  background: rgba(22, 27, 34, 0.8);
+  border-radius: 16px;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  color: #f0f6fc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.ai-demo-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ai-demo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.ai-demo-title h2 {
+  margin: 0;
+  color: #58a6ff;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.ai-demo-subtitle {
+  color: #8b949e;
+  font-size: 16px;
+}
+
+.ai-demo-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.demo-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(13, 17, 23, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+}
+
+.demo-feature h3 {
+  margin: 0 0 4px 0;
+  color: #f0f6fc;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.demo-feature p {
+  margin: 0;
+  color: #8b949e;
+  font-size: 12px;
+}
+
+.ai-demo-commands {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.command-category {
+  background: rgba(13, 17, 23, 0.4);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(240, 246, 252, 0.05);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: #58a6ff;
+}
+
+.category-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.category-commands {
+  display: grid;
+  gap: 12px;
+}
+
+.demo-command {
+  padding: 12px 16px;
+  background: rgba(22, 27, 34, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(240, 246, 252, 0.08);
+}
+
+.command-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.command-text code {
+  background: rgba(88, 166, 255, 0.1);
+  color: #58a6ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.command-description {
+  color: #8b949e;
+  font-size: 12px;
+  margin-left: 20px;
+}
+
+.ai-demo-usage {
+  background: rgba(46, 160, 67, 0.1);
+  border: 1px solid rgba(46, 160, 67, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.ai-demo-usage h3 {
+  margin: 0 0 16px 0;
+  color: #3fb950;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ai-demo-usage ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.ai-demo-usage li {
+  margin-bottom: 8px;
+  color: #f0f6fc;
+  line-height: 1.5;
+}

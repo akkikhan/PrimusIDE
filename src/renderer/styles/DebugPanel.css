@@ -1,0 +1,60 @@
+/* src/renderer/styles/DebugPanel.css */
+.debug-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--background-color-2);
+  color: var(--text-color);
+}
+
+.debug-controls {
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.debug-controls button {
+  margin-right: 8px;
+  padding: 4px 8px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.debug-controls button:disabled {
+  background-color: var(--background-color-3);
+  cursor: not-allowed;
+}
+
+.debug-output {
+  flex-grow: 1;
+  padding: 8px;
+  overflow-y: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+}
+
+.paused-indicator {
+  margin-left: 8px;
+  color: orange;
+  font-weight: bold;
+}
+
+.debug-stack, .debug-variables {
+  margin-top: 10px;
+  padding: 8px;
+  border-top: 1px solid var(--border-color);
+  font-size: 12px;
+}
+
+.debug-stack h4, .debug-variables h4 {
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.debug-stack div, .debug-variables div {
+  line-height: 1.3em;
+}

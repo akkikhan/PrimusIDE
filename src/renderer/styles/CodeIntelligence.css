@@ -1,0 +1,422 @@
+/* Code Intelligence Panel Styles */
+.code-intelligence {
+  position: fixed;
+  left: 60px;
+  top: 0;
+  width: 350px;
+  height: 100vh;
+  background: var(--panel-background);
+  border-right: 1px solid var(--border-color);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-medium);
+  animation: slideInLeft 0.2s ease-out;
+}
+
+.intelligence-header {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--panel-header-background);
+  flex-shrink: 0;
+}
+
+.intelligence-header h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.intelligence-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.intelligence-actions button {
+  background: transparent;
+  border: none;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-small);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intelligence-actions button:hover {
+  background: var(--background-hover);
+  color: var(--text-primary);
+}
+
+.intelligence-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tabs */
+.intelligence-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--background-secondary);
+}
+
+.intelligence-tabs button {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.intelligence-tabs button:hover {
+  background: var(--background-hover);
+  color: var(--text-primary);
+}
+
+.intelligence-tabs button.active {
+  background: var(--panel-background);
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+/* Content */
+.intelligence-content {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.analyzing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.loading-spinner {
+  font-size: 32px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.analyzing-overlay p {
+  margin-top: var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+/* Insights Panel */
+.insights-panel {
+  padding: var(--spacing-md);
+}
+
+.no-insights {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin: var(--spacing-lg) 0;
+}
+
+.insight-item {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-medium);
+  background: var(--background-secondary);
+  border-left: 3px solid transparent;
+}
+
+.insight-item.suggestion {
+  border-left-color: var(--info-color);
+}
+
+.insight-item.warning {
+  border-left-color: var(--warning-color);
+}
+
+.insight-item.error {
+  border-left-color: var(--error-color);
+}
+
+.insight-item.info {
+  border-left-color: var(--accent-color);
+}
+
+.insight-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.insight-icon {
+  font-size: 16px;
+  margin-right: var(--spacing-sm);
+}
+
+.insight-title-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.insight-title-area h4 {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.severity-badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: var(--radius-small);
+  background: var(--background-tertiary);
+}
+
+.severity-badge.high {
+  color: var(--error-color);
+}
+
+.severity-badge.medium {
+  color: var(--warning-color);
+}
+
+.severity-badge.low {
+  color: var(--info-color);
+}
+
+.insight-description {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.insight-location {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.file-path {
+  font-family: 'Courier New', monospace;
+}
+
+.line-number {
+  font-weight: bold;
+  color: var(--accent-color);
+}
+
+.autofix-btn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-small);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.autofix-btn:hover {
+  background: var(--accent-color-hover);
+}
+
+/* Metrics Panel */
+.metrics-panel {
+  padding: var(--spacing-md);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.metric-item {
+  padding: var(--spacing-md);
+  background: var(--background-secondary);
+  border-radius: var(--radius-medium);
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.metric-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.metric-value.high-complexity {
+  color: var(--error-color);
+}
+
+.metric-value.medium-complexity {
+  color: var(--warning-color);
+}
+
+.metric-value.low-complexity {
+  color: var(--success-color);
+}
+
+.metric-value.low-maintainability {
+  color: var(--error-color);
+}
+
+.metric-value.medium-maintainability {
+  color: var(--warning-color);
+}
+
+.metric-value.high-maintainability {
+  color: var(--success-color);
+}
+
+.metric-value.low-coverage {
+  color: var(--error-color);
+}
+
+.metric-value.medium-coverage {
+  color: var(--warning-color);
+}
+
+.metric-value.high-coverage {
+  color: var(--success-color);
+}
+
+.metric-value.outdated-deps {
+  color: var(--warning-color);
+}
+
+.metrics-chart {
+  padding: var(--spacing-md);
+  background: var(--background-secondary);
+  border-radius: var(--radius-medium);
+}
+
+.metrics-chart h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.placeholder-chart {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  background: var(--background-tertiary);
+  border-radius: var(--radius-medium);
+  font-size: 24px;
+}
+
+/* Refactor Panel */
+.refactor-panel {
+  padding: var(--spacing-md);
+}
+
+.refactor-panel h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.refactor-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.refactor-item {
+  padding: var(--spacing-md);
+  background: var(--background-secondary);
+  border-radius: var(--radius-medium);
+  border: 1px solid var(--border-color);
+}
+
+.refactor-item h4 {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.refactor-item p {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.refactor-btn {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-medium);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.refactor-btn:hover {
+  background: var(--accent-color-hover);
+}
+
+/* Scrollbar styling */
+.intelligence-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.intelligence-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.intelligence-content::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+.intelligence-content::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .metric-item {
+  background: var(--background-tertiary);
+}
+
+[data-theme="dark"] .insight-item {
+  background: var(--background-tertiary);
+}
+
+[data-theme="dark"] .refactor-item {
+  background: var(--background-tertiary);
+}

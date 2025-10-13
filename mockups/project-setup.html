@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCode AI - Project Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00d4ff, #090979);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        
+        .setup-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .panel h3 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cccccc;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+        }
+        
+        .templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .template-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .template-card:hover,
+        .template-card.selected {
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .template-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .template-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .template-desc {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+        }
+        
+        .recent-projects {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .project-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .project-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #00d4ff;
+        }
+        
+        .project-icon {
+            font-size: 1.5rem;
+            margin-right: 12px;
+        }
+        
+        .project-info h4 {
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        
+        .project-info p {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .annotations {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screen 2: Project Setup - Creating/opening a project -->
+    <a href="welcome-screen.html" class="back-link">← Back to Welcome</a>
+    
+    <div class="header">
+        <h1 class="logo">OmniCode AI</h1>
+        <p class="subtitle">Set up your development project</p>
+    </div>
+    
+    <div class="setup-container">
+        <!-- New Project Panel -->
+        <div class="panel">
+            <h3>🚀 Create New Project</h3>
+            
+            <div class="form-group">
+                <label for="project-name">Project Name</label>
+                <input type="text" id="project-name" placeholder="My Awesome Project" value="E-commerce Platform">
+            </div>
+            
+            <div class="form-group">
+                <label for="project-type">Project Type</label>
+                <select id="project-type">
+                    <option value="web">Web Application</option>
+                    <option value="mobile">Mobile App</option>
+                    <option value="desktop">Desktop Application</option>
+                    <option value="api">API/Backend</option>
+                    <option value="library">Library/Package</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="tech-stack">Technology Stack</label>
+                <select id="tech-stack">
+                    <option value="react">React + TypeScript</option>
+                    <option value="vue">Vue.js + JavaScript</option>
+                    <option value="angular">Angular + TypeScript</option>
+                    <option value="node">Node.js + Express</option>
+                    <option value="python">Python + Flask</option>
+                    <option value="dotnet">.NET Core</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Choose Template</label>
+                <div class="templates">
+                    <div class="template-card selected">
+                        <div class="template-icon">🛒</div>
+                        <div class="template-name">E-commerce</div>
+                        <div class="template-desc">Full-stack online store</div>
+                    </div>
+                    <div class="template-card">
+                        <div class="template-icon">📊</div>
+                        <div class="template-name">Dashboard</div>
+                        <div class="template-desc">Analytics & reporting</div>
+                    </div>
+                    <div class="template-card">
+                        <div class="template-icon">🎮</div>
+                        <div class="template-name">Game</div>
+                        <div class="template-desc">Interactive web game</div>
+                    </div>
+                    <div class="template-card">
+                        <div class="template-icon">📱</div>
+                        <div class="template-name">Social App</div>
+                        <div class="template-desc">Social networking platform</div>
+                    </div>
+                    <div class="template-card">
+                        <div class="template-icon">📋</div>
+                        <div class="template-name">Task Manager</div>
+                        <div class="template-desc">Project management tool</div>
+                    </div>
+                    <div class="template-card">
+                        <div class="template-icon">🎨</div>
+                        <div class="template-name">Portfolio</div>
+                        <div class="template-desc">Personal showcase site</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <a href="initial-dev.html" class="btn btn-primary">Create Project</a>
+            </div>
+        </div>
+        
+        <!-- Open Existing Project Panel -->
+        <div class="panel">
+            <h3>📂 Open Existing Project</h3>
+            
+            <div class="recent-projects">
+                <div class="project-item">
+                    <div class="project-icon">🛒</div>
+                    <div class="project-info">
+                        <h4>Online Store v2.0</h4>
+                        <p>React + Node.js • Last opened 2 days ago</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-icon">📊</div>
+                    <div class="project-info">
+                        <h4>Analytics Dashboard</h4>
+                        <p>Vue.js + Python • Last opened 1 week ago</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-icon">🎮</div>
+                    <div class="project-info">
+                        <h4>Space Invaders Clone</h4>
+                        <p>JavaScript + Canvas • Last opened 3 weeks ago</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-icon">📱</div>
+                    <div class="project-info">
+                        <h4>Social Feed App</h4>
+                        <p>React Native • Last opened 1 month ago</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-icon">📋</div>
+                    <div class="project-info">
+                        <h4>Task Tracker</h4>
+                        <p>Angular + Firebase • Last opened 2 months ago</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-secondary">Browse Files...</button>
+                <button class="btn btn-secondary">Import from Git</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Detailed Annotations for Screen 2 -->
+    <div class="annotations">
+        <strong>Screen 2 Annotations:</strong><br>
+        • <strong>New Project Form:</strong> Project name, type, tech stack selection with pre-filled example<br>
+        • <strong>Template Grid:</strong> 6 project templates with icons and descriptions, E-commerce selected<br>
+        • <strong>Recent Projects:</strong> List of previously opened projects with metadata (tech stack, last opened)<br>
+        • <strong>Browse Files:</strong> File system dialog to open existing project directory<br>
+        • <strong>Import from Git:</strong> Clone repository from Git URL or connect to GitHub<br>
+        • <strong>Create Project Button:</strong> Primary CTA leading to initial development screen<br>
+        • <strong>Back Link:</strong> Navigation back to welcome screen<br>
+        • <strong>Form Validation:</strong> Real-time validation for project name and required fields
+    </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../.cursor"
+		},
+		{
+			"path": "../../AppData/Local/Programs/cursor"
+		},
+		{
+			"path": "../../../../Program Files/Microsoft VS Code Insiders"
+		},
+		{
+			"path": "../../.vscode-insiders"
+		}
+	],
+	"settings": {}
+}

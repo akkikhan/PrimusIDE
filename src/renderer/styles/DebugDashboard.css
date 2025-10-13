@@ -1,0 +1,895 @@
+/* Debug Dashboard Styles - Advanced debugging interface styling */
+/* Comprehensive styling for intelligent debugging components */
+
+.debug-dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--vscode-editor-background);
+  color: var(--vscode-editor-foreground);
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  border: 1px solid var(--vscode-panel-border);
+  overflow: hidden;
+}
+
+/* Header Styles */
+.debug-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--vscode-titleBar-activeBackground);
+  border-bottom: 1px solid var(--vscode-panel-border);
+  flex-shrink: 0;
+}
+
+.debug-session-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.debug-active-session {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.debug-session-status {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.debug-status-idle { background: var(--vscode-charts-gray); }
+.debug-status-running { background: var(--vscode-charts-green); }
+.debug-status-paused { background: var(--vscode-charts-yellow); }
+.debug-status-terminated { background: var(--vscode-charts-red); }
+.debug-status-error { background: var(--vscode-errorForeground); }
+
+.debug-session-name {
+  font-weight: 600;
+  color: var(--vscode-titleBar-activeForeground);
+}
+
+.debug-session-type {
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground);
+}
+
+.debug-no-session {
+  color: var(--vscode-disabledForeground);
+  font-style: italic;
+}
+
+.debug-main-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Button Styles */
+.debug-button {
+  padding: 4px 12px;
+  border: 1px solid var(--vscode-button-border);
+  border-radius: 2px;
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.debug-button:hover {
+  background: var(--vscode-button-hoverBackground);
+}
+
+.debug-button:active {
+  transform: translateY(1px);
+}
+
+.debug-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.debug-button-primary {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+
+.debug-button-secondary {
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+}
+
+.debug-button-danger {
+  background: var(--vscode-errorForeground);
+  color: var(--vscode-errorBackground);
+}
+
+/* Navigation Styles */
+.debug-nav {
+  display: flex;
+  background: var(--vscode-tab-activeBackground);
+  border-bottom: 1px solid var(--vscode-panel-border);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.debug-nav-button {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  color: var(--vscode-tab-inactiveForeground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  font-size: 0.9em;
+}
+
+.debug-nav-button:hover {
+  background: var(--vscode-tab-hoverBackground);
+  color: var(--vscode-tab-activeForeground);
+}
+
+.debug-nav-button.active {
+  background: var(--vscode-tab-activeBackground);
+  color: var(--vscode-tab-activeForeground);
+  border-bottom-color: var(--vscode-focusBorder);
+}
+
+.debug-nav-icon {
+  font-size: 1.1em;
+}
+
+.debug-nav-label {
+  font-weight: 500;
+}
+
+/* Content Area */
+.debug-content {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: var(--vscode-editor-background);
+}
+
+/* Section Headers */
+.debug-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.debug-section-header h3 {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--vscode-titleBar-activeForeground);
+}
+
+.debug-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Form Controls */
+.debug-input {
+  padding: 4px 8px;
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 2px;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  font-size: 0.9em;
+  min-width: 120px;
+}
+
+.debug-input:focus {
+  outline: none;
+  border-color: var(--vscode-focusBorder);
+  box-shadow: 0 0 0 1px var(--vscode-focusBorder);
+}
+
+.debug-input-small {
+  min-width: 60px;
+  max-width: 80px;
+}
+
+.debug-select {
+  padding: 4px 8px;
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 2px;
+  background: var(--vscode-dropdown-background);
+  color: var(--vscode-dropdown-foreground);
+  font-size: 0.9em;
+}
+
+.debug-select:focus {
+  outline: none;
+  border-color: var(--vscode-focusBorder);
+}
+
+.debug-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.debug-checkbox-label input[type="checkbox"] {
+  margin: 0;
+}
+
+/* Breakpoints Section */
+.debug-breakpoints {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.debug-breakpoint-groups {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.debug-breakpoint-group {
+  margin-bottom: 16px;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.debug-group-header {
+  padding: 8px 12px;
+  background: var(--vscode-list-hoverBackground);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.debug-group-header:hover {
+  background: var(--vscode-list-activeSelectionBackground);
+}
+
+.debug-expand-icon {
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+  color: var(--vscode-icon-foreground);
+}
+
+.debug-expand-icon.expanded {
+  transform: rotate(90deg);
+}
+
+.debug-file-name {
+  font-family: var(--vscode-editor-font-family);
+  flex: 1;
+}
+
+.debug-breakpoint-count {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+}
+
+.debug-breakpoint-list {
+  border-top: 1px solid var(--vscode-panel-border);
+}
+
+.debug-breakpoint-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid var(--vscode-list-inactiveSelectionBackground);
+  gap: 12px;
+}
+
+.debug-breakpoint-item:last-child {
+  border-bottom: none;
+}
+
+.debug-breakpoint-item.enabled {
+  background: var(--vscode-editor-background);
+}
+
+.debug-breakpoint-item.disabled {
+  background: var(--vscode-list-inactiveSelectionBackground);
+  opacity: 0.7;
+}
+
+.debug-breakpoint-info {
+  flex: 1;
+}
+
+.debug-breakpoint-location {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-family: var(--vscode-editor-font-family);
+}
+
+.debug-condition {
+  color: var(--vscode-debugTokenExpression-name);
+  font-style: italic;
+}
+
+.debug-breakpoint-stats {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+  margin-bottom: 6px;
+}
+
+.debug-recommendations {
+  margin-top: 6px;
+}
+
+.debug-recommendation {
+  font-size: 0.85em;
+  color: var(--vscode-debugTokenExpression-value);
+  margin-bottom: 2px;
+  padding: 2px 6px;
+  background: var(--vscode-badge-background);
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.debug-breakpoint-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Watch Section */
+.debug-watch {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.debug-watch-groups {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.debug-watch-group {
+  margin-bottom: 16px;
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.debug-watch-list {
+  border-top: 1px solid var(--vscode-panel-border);
+}
+
+.debug-watch-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid var(--vscode-list-inactiveSelectionBackground);
+  gap: 12px;
+}
+
+.debug-watch-item:last-child {
+  border-bottom: none;
+}
+
+.debug-watch-info {
+  flex: 1;
+}
+
+.debug-watch-expression {
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-family: var(--vscode-editor-font-family);
+  color: var(--vscode-debugTokenExpression-name);
+}
+
+.debug-watch-value {
+  margin-bottom: 6px;
+}
+
+.debug-value {
+  color: var(--vscode-debugTokenExpression-value);
+  font-family: var(--vscode-editor-font-family);
+}
+
+.debug-type {
+  color: var(--vscode-debugTokenExpression-type);
+  font-size: 0.85em;
+}
+
+.debug-error {
+  color: var(--vscode-errorForeground);
+  font-style: italic;
+}
+
+.debug-predictions {
+  margin-top: 8px;
+  padding: 8px;
+  background: var(--vscode-badge-background);
+  border-radius: 4px;
+  border-left: 3px solid var(--vscode-charts-purple);
+}
+
+.debug-prediction {
+  font-size: 0.85em;
+  color: var(--vscode-debugTokenExpression-string);
+  margin-bottom: 2px;
+}
+
+.debug-suggestions {
+  margin-top: 8px;
+}
+
+.debug-suggestion-button {
+  font-size: 0.8em;
+  padding: 2px 6px;
+  margin: 2px 4px 2px 0;
+  border: 1px solid var(--vscode-button-border);
+  border-radius: 2px;
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.debug-suggestion-button:hover {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+
+.debug-watch-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.debug-group-name {
+  font-weight: 500;
+}
+
+.debug-watch-count {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+}
+
+/* Call Stack Section */
+.debug-callstack {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.debug-thread-selector {
+  margin-left: auto;
+}
+
+.debug-callstack-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.debug-callstack-frame {
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.debug-callstack-frame:hover {
+  border-color: var(--vscode-focusBorder);
+}
+
+.debug-callstack-frame.active {
+  border-color: var(--vscode-focusBorder);
+  background: var(--vscode-list-activeSelectionBackground);
+}
+
+.debug-frame-header {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--vscode-list-hoverBackground);
+}
+
+.debug-frame-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.debug-frame-name {
+  font-weight: 500;
+  font-family: var(--vscode-editor-font-family);
+}
+
+.debug-frame-location {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+  font-family: var(--vscode-editor-font-family);
+}
+
+.debug-frame-index {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+  font-weight: 600;
+}
+
+.debug-frame-variables {
+  padding: 0 12px 12px 12px;
+  border-top: 1px solid var(--vscode-panel-border);
+}
+
+.debug-scope {
+  margin-bottom: 12px;
+}
+
+.debug-scope-header {
+  font-size: 0.9em;
+  margin-bottom: 6px;
+  color: var(--vscode-debugTokenExpression-name);
+}
+
+.debug-variable-list {
+  padding-left: 16px;
+}
+
+.debug-variable {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.9em;
+}
+
+.debug-variable-name {
+  color: var(--vscode-debugTokenExpression-name);
+  font-weight: 500;
+}
+
+.debug-variable-value {
+  color: var(--vscode-debugTokenExpression-value);
+  word-break: break-all;
+}
+
+.debug-variable-type {
+  color: var(--vscode-debugTokenExpression-type);
+  font-size: 0.85em;
+}
+
+/* Console Section */
+.debug-console {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.debug-console-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.debug-console-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  background: var(--vscode-terminal-background);
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.9em;
+}
+
+.debug-console-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+
+.debug-message-timestamp {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.8em;
+  flex-shrink: 0;
+  width: 80px;
+}
+
+.debug-message-type {
+  font-weight: 600;
+  font-size: 0.8em;
+  flex-shrink: 0;
+  width: 60px;
+}
+
+.debug-message-log .debug-message-type { color: var(--vscode-terminal-ansiWhite); }
+.debug-message-error .debug-message-type { color: var(--vscode-terminal-ansiRed); }
+.debug-message-warning .debug-message-type { color: var(--vscode-terminal-ansiYellow); }
+.debug-message-info .debug-message-type { color: var(--vscode-terminal-ansiBlue); }
+.debug-message-debug .debug-message-type { color: var(--vscode-terminal-ansiMagenta); }
+
+.debug-message-content {
+  flex: 1;
+  color: var(--vscode-terminal-foreground);
+}
+
+.debug-message-source {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.8em;
+}
+
+.debug-console-empty {
+  color: var(--vscode-disabledForeground);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Insights Section */
+.debug-insights {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.debug-insights-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.debug-insight {
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--vscode-editor-background);
+}
+
+.debug-insight-info { border-left: 4px solid var(--vscode-charts-blue); }
+.debug-insight-warning { border-left: 4px solid var(--vscode-charts-yellow); }
+.debug-insight-error { border-left: 4px solid var(--vscode-charts-red); }
+.debug-insight-critical { border-left: 4px solid var(--vscode-errorForeground); }
+
+.debug-insight-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.debug-insight-type {
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--vscode-badge-background);
+  color: var(--vscode-badge-foreground);
+  font-weight: 600;
+}
+
+.debug-insight-severity {
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.debug-insight-severity[class*="INFO"] { background: var(--vscode-charts-blue); }
+.debug-insight-severity[class*="WARNING"] { background: var(--vscode-charts-yellow); }
+.debug-insight-severity[class*="ERROR"] { background: var(--vscode-charts-red); }
+.debug-insight-severity[class*="CRITICAL"] { background: var(--vscode-errorForeground); }
+
+.debug-insight-confidence {
+  font-size: 0.8em;
+  color: var(--vscode-descriptionForeground);
+  margin-left: auto;
+}
+
+.debug-insight-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--vscode-titleBar-activeForeground);
+}
+
+.debug-insight-description {
+  color: var(--vscode-editor-foreground);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.debug-insight-location {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+  font-family: var(--vscode-editor-font-family);
+  margin-bottom: 8px;
+}
+
+.debug-insight-suggestions {
+  margin-top: 8px;
+}
+
+.debug-insight-suggestions ul {
+  margin: 4px 0;
+  padding-left: 16px;
+}
+
+.debug-insight-suggestions li {
+  margin-bottom: 2px;
+  color: var(--vscode-debugTokenExpression-value);
+}
+
+.debug-insight-evidence {
+  margin-top: 8px;
+  padding: 8px;
+  background: var(--vscode-list-inactiveSelectionBackground);
+  border-radius: 4px;
+}
+
+.debug-evidence-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  font-size: 0.85em;
+}
+
+.debug-evidence-type {
+  font-weight: 500;
+  color: var(--vscode-debugTokenExpression-name);
+}
+
+.debug-evidence-description {
+  color: var(--vscode-editor-foreground);
+}
+
+.debug-evidence-strength {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.8em;
+}
+
+.debug-insights-empty {
+  color: var(--vscode-disabledForeground);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Profiling Section */
+.debug-profiling {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.debug-profiles-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.debug-profile {
+  border: 1px solid var(--vscode-panel-border);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--vscode-editor-background);
+}
+
+.debug-profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.debug-profile-type {
+  font-size: 0.8em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--vscode-badge-background);
+  color: var(--vscode-badge-foreground);
+  font-weight: 600;
+}
+
+.debug-profile-duration {
+  font-size: 0.9em;
+  color: var(--vscode-descriptionForeground);
+  font-weight: 500;
+}
+
+.debug-profile-info {
+  font-size: 0.85em;
+  color: var(--vscode-descriptionForeground);
+  margin-bottom: 8px;
+}
+
+.debug-profile-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.debug-profiles-empty {
+  color: var(--vscode-disabledForeground);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .debug-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .debug-main-controls {
+    justify-content: center;
+  }
+
+  .debug-nav {
+    flex-wrap: wrap;
+  }
+
+  .debug-breakpoint-item,
+  .debug-watch-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .debug-breakpoint-actions,
+  .debug-watch-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .debug-button,
+  .debug-nav-button,
+  .debug-expand-icon,
+  .debug-callstack-frame {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .debug-dashboard {
+    border: 2px solid;
+  }
+  
+  .debug-breakpoint-item,
+  .debug-watch-item,
+  .debug-insight,
+  .debug-profile {
+    border-width: 2px;
+  }
+}
