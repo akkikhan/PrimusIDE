@@ -5,6 +5,17 @@
     "exec-shell"
   ],
   "providerPolicies": {
+    "ollama": {
+      "allowed": [
+        "chat",
+        "explain",
+        "planning",
+        "refactor",
+        "inline-complete",
+        "tests"
+      ],
+      "maxPromptChars": 16000
+    },
     "mock-local": {
       "allowed": [
         "chat",
@@ -49,6 +60,7 @@
     "maxRequests": 120
   },
   "allowedModels": [
+    "ollama",
     "mock-local",
     "mock-transform",
     "mock-analysis"

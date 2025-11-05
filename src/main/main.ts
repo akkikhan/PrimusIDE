@@ -39,16 +39,17 @@ async function cleanupBeforeQuit() {
     console.log('[App] Retrieval indexer stopped');
   }
   
-  // Save AI provider metrics
-  try {
-    const metrics = getProviderMetricsSnapshot();
-    const metricsPath = path.join(app.getPath('userData'), 'ai', 'metrics.json');
-    await fs.mkdir(path.dirname(metricsPath), { recursive: true });
-    await fs.writeFile(metricsPath, JSON.stringify(metrics, null, 2), 'utf8');
-    console.log('[App] AI metrics saved');
-  } catch (err) {
-    console.warn('[App] Failed to save AI metrics:', err);
-  }
+  // Save AI provider metrics - TEMPORARILY DISABLED to prevent electronmon restart loop
+  // TODO: Re-enable with proper file watching exclusion
+  // try {
+  //   const metrics = getProviderMetricsSnapshot();
+  //   const metricsPath = path.join(app.getPath('userData'), 'ai', 'metrics.json');
+  //   await fs.mkdir(path.dirname(metricsPath), { recursive: true });
+  //   await fs.writeFile(metricsPath, JSON.stringify(metrics, null, 2), 'utf8');
+  //   console.log('[App] AI metrics saved');
+  // } catch (err) {
+  //   console.warn('[App] Failed to save AI metrics:', err);
+  // }
   
   console.log('[App] Graceful shutdown completed');
 }
@@ -462,7 +463,7 @@ async function createWindow() {
   }
 
   if (isDev) {
-    await mainWindow.loadURL('http://localhost:3001');
+    await mainWindow.loadURL('http://localhost:5001');
     mainWindow.webContents.openDevTools({ mode: 'detach' });
   } else {
     try {

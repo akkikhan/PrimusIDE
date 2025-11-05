@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/renderer/index.tsx',
   devtool: 'inline-source-map',
   devServer: {
-    port: 3001,
+    port: 5001,
     hot: true,
     historyApiFallback: true
   },

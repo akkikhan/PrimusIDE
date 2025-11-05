@@ -5,7 +5,9 @@
 
 /* Core Design System */
 @import './premium-design-system.css';
+@import './alignment-global-fixes.css';
 @import './ide-layout.css';
+@import './layout-fixes.css';
 @import './components.css';
 
 /* Component-Specific Styles */

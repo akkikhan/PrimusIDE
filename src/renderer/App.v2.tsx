@@ -43,7 +43,6 @@ const AppContent: React.FC = () => {
   // Editor State
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [activeTabId, setActiveTabId] = useState<string | null>(null);
-  const [cursorPosition, setCursorPosition] = useState({ line: 1, column: 1 });
   const editorRef = useRef<any>(null);
   
   // Workspace State
@@ -125,28 +124,15 @@ const AppContent: React.FC = () => {
 
   const handleOpenFolder = async () => {
     try {
-      // Use the existing fs:selectFolder IPC handler
-      const folderPath = await window.primus.fs.selectFolder();
-      if (folderPath) {
-        await loadWorkspace(folderPath);
+      const result = await window.primus.dialog.showOpenDialog({
+        properties: ['openDirectory']
+      });
+      if (result && Array.isArray(result) && result.length > 0) {
+        await loadWorkspace(result[0]);
       }
     } catch (err) {
       console.error('Failed to open folder:', err);
     }
-  };
-
-  const handleNewFile = () => {
-    const existingUntitled = tabs.filter(t => t.name.startsWith('Untitled-'));
-    const nextNumber = existingUntitled.length + 1;
-    const newTab: Tab = {
-      id: Date.now().toString(),
-      name: `Untitled-${nextNumber}`,
-      content: '',
-      language: 'plaintext',
-      isDirty: false
-    };
-    setTabs(prev => [...prev, newTab]);
-    setActiveTabId(newTab.id);
   };
 
   // Monaco Integration
@@ -155,14 +141,6 @@ const AppContent: React.FC = () => {
     
     const editor = editorRef.current.getEditor?.();
     if (!editor) return;
-
-    // Track cursor position
-    const disposable = editor.onDidChangeCursorPosition((e: any) => {
-      setCursorPosition({
-        line: e.position.lineNumber,
-        column: e.position.column
-      });
-    });
 
     const model = editor.getModel();
     if (!model) return;
@@ -185,8 +163,6 @@ const AppContent: React.FC = () => {
     }));
 
     setProblems(newProblems);
-
-    return () => disposable?.dispose();
   }, [activeTab, tabs]);
 
   // Keyboard Shortcuts
@@ -314,7 +290,7 @@ const AppContent: React.FC = () => {
                     <button className="icon-btn" onClick={handleOpenFolder} title="Open Folder">
                       📁
                     </button>
-                    <button className="icon-btn" onClick={handleNewFile} title="New File">
+                    <button className="icon-btn" title="New File">
                       📄
                     </button>
                   </>
@@ -426,7 +402,7 @@ const AppContent: React.FC = () => {
                   <button className="welcome-btn primary" onClick={handleOpenFolder}>
                     📁 Open Folder
                   </button>
-                  <button className="welcome-btn" onClick={handleNewFile}>
+                  <button className="welcome-btn">
                     📄 New File
                   </button>
                 </div>
@@ -530,7 +506,7 @@ const AppContent: React.FC = () => {
           {activeTab && (
             <>
               <span className="status-item">
-                Ln {cursorPosition.line}, Col {cursorPosition.column}
+                Ln 1, Col 1
               </span>
               <span className="status-item">
                 {activeTab.language.toUpperCase()}
@@ -539,15 +515,7 @@ const AppContent: React.FC = () => {
           )}
         </div>
         <div className="status-right">
-          <span 
-            className="status-item" 
-            onClick={() => {
-              setActivePanel('problems');
-              setIsPanelVisible(true);
-            }}
-            style={{ cursor: 'pointer' }}
-            title="Click to open Problems panel"
-          >
+          <span className="status-item">
             {problems.filter(p => p.severity === ProblemSeverity.Error).length} ❌
             {problems.filter(p => p.severity === ProblemSeverity.Warning).length} ⚠️
           </span>

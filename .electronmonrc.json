@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "!dist/main/**/*.js",
+    "!dist/main/**/*.js.map"
+  ],
+  "ignore": [
+    "dist/**",
+    "node_modules/**",
+    "artifacts/**",
+    "**/*.json",
+    "**/*.md"
+  ],
+  "logLevel": "error",
+  "delay": 5000
+}

@@ -1,5 +1,6 @@
 import type { AIRequest, AIInvokeResult, AIResponse } from '../../shared/aiTypes.js';
-import { OpenAIProvider } from './providers/openaiProvider.js';
+// import { OpenAIProvider } from './providers/openaiProvider.js'; // TODO: Re-enable later
+import { OllamaProvider } from './providers/ollamaProvider.js';
 import { aiConfigManager } from './AIConfigManager.js';
 
 export interface AIProvider {
@@ -42,23 +43,36 @@ class ProviderRegistry {
   }
 
   private initializeProviders() {
-    // Always register mock provider
+    // Always register mock provider as fallback
     this.register(this.fallbackProvider);
 
-    // Try to register OpenAI if configured
-    const openaiKey = aiConfigManager.getApiKey('openai');
-    if (openaiKey) {
-      const config = aiConfigManager.getConfig();
-      const openaiProvider = new OpenAIProvider({
-        apiKey: openaiKey,
-        model: config.providers.openai?.model || 'gpt-4o-mini',
-        baseUrl: config.providers.openai?.baseUrl
+    const config = aiConfigManager.getConfig();
+
+    // Using Mistral via Ollama - Primary AI provider
+    const ollamaConfig = config.providers.ollama;
+    if (ollamaConfig?.baseUrl && ollamaConfig?.model) {
+      const ollamaProvider = new OllamaProvider({
+        baseUrl: ollamaConfig.baseUrl,
+        model: ollamaConfig.model
       });
-      this.register(openaiProvider);
-      console.log('✅ OpenAI provider registered with API key');
+      this.register(ollamaProvider);
+      console.log(`✅ Mistral AI provider registered with model ${ollamaConfig.model}`);
+      console.log(`✅ Mistral endpoint: ${ollamaConfig.baseUrl}`);
     } else {
-      console.log('⚠️ OpenAI API key not configured - using mock provider');
+      console.log('⚠️ Mistral/Ollama not configured');
     }
+
+    // TODO: OpenAI and Ollama support - will be added later
+    // const openaiKey = aiConfigManager.getApiKey('openai');
+    // if (openaiKey) {
+    //   const openaiProvider = new OpenAIProvider({
+    //     apiKey: openaiKey,
+    //     model: config.providers.openai?.model || 'gpt-4o-mini',
+    //     baseUrl: config.providers.openai?.baseUrl
+    //   });
+    //   this.register(openaiProvider);
+    //   console.log('✅ OpenAI provider registered');
+    // }
   }
 
   register(provider: AIProvider): void {
@@ -77,6 +91,10 @@ class ProviderRegistry {
     if (defaultProvider) {
       return defaultProvider;
     }
+    
+    // Try Ollama if available
+    const ollama = this.providers.get('ollama');
+    if (ollama) return ollama;
     
     // Try OpenAI if available
     const openai = this.providers.get('openai');

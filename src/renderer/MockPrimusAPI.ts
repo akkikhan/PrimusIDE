@@ -185,8 +185,10 @@ export const createMockPrimusAPI = () => {
 // Initialize mock API if window.primus doesn't exist
 export const initializeMockPrimus = () => {
   if (typeof window !== 'undefined' && !(window as any).primus) {
+    console.log('[MockPrimus] Initializing mock API for browser environment');
     (window as any).primus = createMockPrimusAPI();
-    
+  } else if ((window as any).primus) {
+    console.log('[MockPrimus] Real Primus API detected (Electron environment) - skipping mock');
   }
 };
 
@@ -208,8 +210,11 @@ export const initializeMockElectron = () => {
   }
 };
 
-// Auto-initialize if in browser
+// Auto-initialize if in browser (but wait for DOMContentLoaded to check if Electron provided primus)
 if (typeof window !== 'undefined') {
-  initializeMockPrimus();
-  initializeMockElectron();
+  // Wait a tick to let Electron's contextBridge initialize first
+  setTimeout(() => {
+    initializeMockPrimus();
+    initializeMockElectron();
+  }, 0);
 }

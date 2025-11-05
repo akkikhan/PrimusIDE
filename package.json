@@ -28,7 +28,7 @@
     "dev:main": "tsc -p tsconfig.main.json --watch",
     "dev:preload": "tsc -p tsconfig.preload.json --watch",
     "dev:renderer": "webpack serve --config webpack.renderer.dev.js",
-    "dev:electron": "wait-on dist/main/main/main.js tcp:3001 && cross-env NODE_ENV=development electronmon dist/main/main/main.js",
+    "dev:electron": "wait-on tcp:5001 && cross-env NODE_ENV=development electron .",
     "dev": "concurrently \"npm:dev:*\"",
     "start": "cross-env NODE_ENV=production electron dist/main/main/main.js",
     "dist": "electron-builder",

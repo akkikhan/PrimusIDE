@@ -74,7 +74,9 @@ export function persistProviderMetrics(){
 let persistTimer: NodeJS.Timeout | null = null;
 function startPersistence(){
   if(persistTimer) return;
-  persistTimer = setInterval(persistProviderMetrics, 15000);
+  // TEMPORARILY DISABLED - causing electronmon restart loop
+  // TODO: Re-enable with proper file watching exclusion
+  // persistTimer = setInterval(persistProviderMetrics, 15000);
 }
 
 export function forcePersistProviderMetrics(){ persistProviderMetrics(); }

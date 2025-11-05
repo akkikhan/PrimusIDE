@@ -15,7 +15,7 @@ interface FileExplorerProps {
 
 const FileExplorer: React.FC<FileExplorerProps> = ({ 
   onFileSelect, 
-  rootPath = process.cwd() 
+  rootPath = '' 
 }) => {
   const [files, setFiles] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState(true);

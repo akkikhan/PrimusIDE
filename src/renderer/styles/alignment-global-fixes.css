@@ -1,0 +1,521 @@
+/* ============================================
+   GLOBAL ALIGNMENT & LAYOUT FIXES
+   Critical fixes for UI alignment issues
+   ============================================ */
+
+/* === CRITICAL BOX MODEL FIXES === */
+* {
+  box-sizing: border-box;
+}
+
+/* Fix for flex/grid children overflow */
+* {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* === ROOT APP CONTAINER === */
+#root {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-primary);
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* === FLEX CONTAINER UNIVERSAL FIXES === */
+.flex-container,
+[class*="container"] {
+  min-width: 0;
+  min-height: 0;
+}
+
+.flex-item,
+[class*="item"] {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* === SCROLLABLE CONTAINERS === */
+[class*="scroll"],
+[class*="content"],
+.scrollable {
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  scrollbar-width: thin;
+}
+
+/* === TEXT OVERFLOW PREVENTION === */
+.truncate,
+[class*="label"],
+[class*="title"] {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* === BUTTON ALIGNMENT === */
+button,
+.btn,
+[class*="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs, 4px);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* === INPUT ALIGNMENT === */
+input,
+textarea,
+select,
+.input,
+.textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* === ICON SIZING === */
+svg,
+.icon,
+[class*="icon"] {
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* === PANEL Z-INDEX HIERARCHY === */
+.modal,
+[role="dialog"] {
+  z-index: 10000;
+}
+
+.command-palette {
+  z-index: 9999;
+}
+
+.dropdown,
+.menu,
+[class*="dropdown"],
+[class*="menu"] {
+  z-index: 9998;
+}
+
+.tooltip,
+[role="tooltip"] {
+  z-index: 9997;
+}
+
+.overlay {
+  z-index: 9996;
+}
+
+/* === PREVENT LAYOUT SHIFTS === */
+.prevent-shift {
+  contain: layout;
+}
+
+/* === GPU ACCELERATION === */
+.gpu-accelerated,
+[class*="animated"],
+[class*="transition"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* === DISABLE TRANSITIONS DURING RESIZE === */
+.resizing,
+.resizing * {
+  transition: none !important;
+}
+
+/* === GRID LAYOUT FIXES === */
+[class*="grid"] {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* === ASPECT RATIO FIXES === */
+.aspect-square {
+  aspect-ratio: 1/1;
+}
+
+.aspect-video {
+  aspect-ratio: 16/9;
+}
+
+/* === SAFE AREA INSETS (for Electron) === */
+@supports (padding: env(safe-area-inset-top)) {
+  .app {
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* === PREVENT SELECTION ON UI ELEMENTS === */
+.no-select,
+[class*="bar"],
+[class*="header"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* === ENSURE PROPER STACKING === */
+.stack-context {
+  isolation: isolate;
+}
+
+/* === FIX FOR MONACO EDITOR === */
+.monaco-editor,
+.monaco-editor * {
+  box-sizing: content-box !important;
+}
+
+.monaco-editor {
+  box-sizing: border-box !important;
+}
+
+/* === TERMINAL FIX === */
+.xterm {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.xterm .xterm-viewport {
+  overflow-y: scroll !important;
+}
+
+/* === FILE TREE ALIGNMENT === */
+.file-tree,
+.tree-view,
+[class*="tree"] {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.file-item,
+.tree-item,
+[class*="tree-item"] {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs, 4px);
+  min-height: 24px;
+  padding: 2px var(--space-sm, 8px);
+  white-space: nowrap;
+}
+
+/* === SEARCH PANEL ALIGNMENT === */
+.search-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.search-results {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* === SETTINGS PANEL ALIGNMENT === */
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.settings-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  padding: var(--space-lg, 16px);
+}
+
+/* === SPLIT VIEW FIXES === */
+.split-view {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
+.split-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
+.split-divider {
+  flex-shrink: 0;
+  cursor: col-resize;
+  background: var(--glass-border, rgba(255, 255, 255, 0.05));
+  width: 1px;
+}
+
+/* === WELCOME SCREEN ALIGNMENT === */
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: var(--space-3xl, 48px);
+  overflow-y: auto;
+}
+
+.welcome-content {
+  max-width: 800px;
+  width: 100%;
+}
+
+.welcome-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg, 16px);
+}
+
+/* === AI CHAT ALIGNMENT === */
+.ai-chat-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ai-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-lg, 16px);
+  min-height: 0;
+}
+
+.ai-chat-input {
+  flex-shrink: 0;
+  padding: var(--space-lg, 16px);
+  border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+}
+
+/* === CONTEXT MENU ALIGNMENT === */
+.context-menu {
+  position: fixed;
+  background: var(--color-surface, #1e2028);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+  border-radius: var(--radius-md, 10px);
+  box-shadow: var(--shadow-xl, 0 16px 64px rgba(0, 0, 0, 0.3));
+  padding: var(--space-xs, 4px);
+  min-width: 180px;
+  max-width: 300px;
+  z-index: 10001;
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md, 12px);
+  padding: var(--space-sm, 8px) var(--space-md, 12px);
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  transition: var(--transition-fast, all 0.15s);
+  white-space: nowrap;
+}
+
+/* === BADGE ALIGNMENT === */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+/* === NOTIFICATION ALIGNMENT === */
+.notification {
+  position: fixed;
+  top: var(--space-lg, 16px);
+  right: var(--space-lg, 16px);
+  min-width: 300px;
+  max-width: 400px;
+  background: var(--color-surface, #1e2028);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.05));
+  border-radius: var(--radius-lg, 14px);
+  box-shadow: var(--shadow-xl, 0 16px 64px rgba(0, 0, 0, 0.3));
+  padding: var(--space-lg, 16px);
+  z-index: 10002;
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* === LOADING SPINNER ALIGNMENT === */
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* === RESPONSIVE IMPROVEMENTS === */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+}
+
+/* === PRINT STYLES === */
+@media print {
+  .no-print,
+  [class*="bar"],
+  [class*="panel"]:not(.editor-container) {
+    display: none !important;
+  }
+
+  .editor-container {
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+  * {
+    border-width: 2px !important;
+  }
+
+  .border,
+  [class*="border"] {
+    border-width: 3px !important;
+  }
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === DARK MODE ENHANCEMENTS === */
+@media (prefers-color-scheme: dark) {
+  /* Already handled by theme system */
+}
+
+/* === FOCUS MANAGEMENT === */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-primary, #00d4ff);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 6px);
+}
+
+/* === CURSOR IMPROVEMENTS === */
+.clickable,
+button,
+a,
+[role="button"] {
+  cursor: pointer;
+}
+
+.disabled,
+[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.resizable {
+  cursor: resize;
+}
+
+/* === SELECTION IMPROVEMENTS === */
+::selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--color-text-primary, #ffffff);
+}
+
+::-moz-selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--color-text-primary, #ffffff);
+}
+
+/* === WEBKIT SPECIFIC FIXES === */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* === ENSURE PROPER RENDERING === */
+.force-repaint {
+  transform: translateZ(0);
+}

@@ -94,7 +94,7 @@ const Terminal: React.FC<TerminalProps> = ({ isVisible, onToggle }) => {
     }
 
     if (normalized === "pwd") {
-      setOutput(prev => [...prev, currentDir || process.cwd()]);
+      setOutput(prev => [...prev, currentDir || '/']);
       return;
     }
 
