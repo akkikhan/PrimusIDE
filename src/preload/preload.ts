@@ -95,6 +95,9 @@ const INVOKE_CHANNELS = new Set([
   IPC_CHANNELS.AI_CONTEXT_GATHER,
   IPC_CHANNELS.AI_STREAM_REQUEST,
   IPC_CHANNELS.AI_STREAM_CANCEL,
+  IPC_CHANNELS.AI_PIN_ADD,
+  IPC_CHANNELS.AI_PIN_REMOVE,
+  IPC_CHANNELS.AI_PIN_LIST,
   
   // Retrieval operations
   IPC_CHANNELS.REINDEX_START,
@@ -450,6 +453,17 @@ const primusApi = {
       // TASK:7 Input validation
       if (typeof streamId !== 'string') throw new Error('Invalid stream ID');
       ipcRenderer.send(IPC_CHANNELS.AI_STREAM_CANCEL, { streamId });
+    },
+    pin: {
+        add: (item: any) => {
+            if (typeof item !== 'object') throw new Error('Invalid item');
+            return ipcRenderer.invoke(IPC_CHANNELS.AI_PIN_ADD, item);
+        },
+        remove: (id: string) => {
+            if (typeof id !== 'string') throw new Error('Invalid id');
+            return ipcRenderer.invoke(IPC_CHANNELS.AI_PIN_REMOVE, id);
+        },
+        list: () => ipcRenderer.invoke(IPC_CHANNELS.AI_PIN_LIST)
     }
   },
   retrieval: (() => {

@@ -2,13 +2,24 @@
 // These types define the contract between renderer <-> preload/main.
 
 export interface ContextGatherRequest {
-  modules: string[];            // requested module ids (e.g., 'current-file','selection','diagnostics','related-tests')
+  modules: string[];            // requested module ids (e.g., 'current-file','selection','diagnostics','related-tests', 'pinned')
   budgetTokens: number;         // soft cap for total tokens
   selectionText?: string;       // optional current selection text (if already available in renderer)
   currentFilePath?: string;     // active editor file path
   languageHint?: string;        // optional language id for better token approximation
   diagnosticsSummary?: string;  // optional serialized diagnostics summary (renderer-prepared)
   retrievalQuery?: string;      // optional query override for retrieval module
+}
+
+export interface PinnedContextItem {
+  id: string;             // unique id (e.g. path or hash)
+  type: 'file' | 'snippet' | 'terminal';
+  content: string;        // the text content
+  meta?: {
+    path?: string;
+    range?: string; // e.g. "10-20"
+    timestamp: number;
+  };
 }
 
 export interface ContextModuleResult {
