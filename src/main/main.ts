@@ -86,6 +86,7 @@ const { gitIPCHandler } = require('./services/GitIPCHandler.js'); // Git IPC han
 const { patchSessionStore } = require('./patchSessionStore.js'); // Patch session store (main process)
 require('./ipc/patch.js'); // Patch IPC handlers
 require('./ipc/tools.js'); // Tool IPC handlers (list/invoke)
+const { registerAIContextHandlers } = require('./ipc/aiContextHandler.js'); // AI Context (Pinning/Gathering)
 const { DebugManager } = require('./debug/DebugManager.js');
 const { IPC_CHANNELS } = require('../shared/ipcChannels.js');
 const { ContextBundle } = require('../shared/contextTypes.js');
@@ -478,6 +479,9 @@ async function createWindow() {
 
   fileWatcher = new FileWatcher(mainWindow);
   debugManager = new DebugManager(mainWindow);
+
+  // Register AI Context Handlers
+  registerAIContextHandlers();
 
   await updateWorkspacePath(currentWorkspacePath);
 

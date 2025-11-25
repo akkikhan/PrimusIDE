@@ -74,8 +74,8 @@
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.544.0",
     "monaco-editor": "^0.53.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "recharts": "^3.2.0",
     "simple-git": "^3.28.0",
     "tailwind-merge": "^3.3.1"
