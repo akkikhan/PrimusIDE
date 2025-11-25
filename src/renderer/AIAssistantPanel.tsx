@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AIProvider } from './ai/AIProvider';
+import { PinnedContext } from './components/PinnedContext';
 import './AIAssistantPanel.css';
 
 interface Message {
@@ -170,6 +171,8 @@ export const AIAssistantPanel: React.FC<AIAssistantPanelProps> = ({
           <span>Code selected ({selectedCode.split('\n').length} lines)</span>
         </div>
       )}
+
+      <PinnedContext />
 
       <div className="quick-actions">
         <div className="quick-actions-title">Quick Actions:</div>

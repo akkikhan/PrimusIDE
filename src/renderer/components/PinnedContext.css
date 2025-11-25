@@ -1,0 +1,61 @@
+/* PinnedContext.css */
+.pinned-context-container {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--vscode-panel-border, #3c3c3c);
+    background: var(--vscode-editor-background, #1e1e1e);
+  }
+
+  .pinned-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    color: var(--vscode-foreground, #cccccc);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .pinned-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 100px;
+    overflow-y: auto;
+  }
+
+  .pinned-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--vscode-button-secondaryBackground, #3c3c3c);
+    border: 1px solid var(--vscode-button-border, #464647);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--vscode-descriptionForeground, #cccccc);
+  }
+
+  .pinned-item-icon {
+    margin-right: 6px;
+  }
+
+  .pinned-item-content {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .unpin-button {
+    background: none;
+    border: none;
+    color: var(--vscode-descriptionForeground, #999);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    margin-left: 4px;
+  }
+
+  .unpin-button:hover {
+    color: var(--vscode-button-foreground, #ffffff);
+  }
